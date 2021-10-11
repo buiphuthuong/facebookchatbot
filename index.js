@@ -1,52 +1,16 @@
 'use strict'
-const express = require('express')
-const bodyParser = require('body-parser')
-const app = express().use(bodyParser.json())
+const BootBot = require('bootbot')
 
-app.post('/webhook', (req, res) => {
-  let body = req.body
-
-  // Checks this is an event from a page subscription
-  if (body.object === 'page') {
-    // Iterates over each entry - there may be multiple if batched
-    body.entry.forEach(function (entry) {
-      // Gets the message. entry.messaging is an array, but
-      // will only ever contain one message, so we get index 0
-      let webhook_event = entry.messaging[0]
-      console.log(webhook_event)
-    })
-
-    // Returns a '200 OK' response to all requests
-    res.status(200).send('EVENT_RECEIVED')
-  } else {
-    // Returns a '404 Not Found' if event is not from a page subscription
-    res.sendStatus(404)
-  }
+const bot = new BootBot({
+  accessToken:
+    'EAAMj6ZA9o2XkBADQGqikJ7o4effnSBCxeXnw7o22lumF3TpAONytmM8cxUso6koZB4pwjLb4CWr1bZACMd4nAb5eFdPTLmkQVYpOZBDpcVIE6BjsZAYjZBZAa1zGdLgZAktqt5cyFx2psK2iCs1nypfeqZAU12cPPZCgZCuhLpbp3QYgZCOq3LcjAWi7ZCCPXoi2P4iIZD',
+  verifyToken: 'mymyshopchatbot',
+  appSecret: '7f4da98c38aa310f62e877178fe26444'
 })
 
-// Adds support for GET requests to our webhook
-app.get('/webhook', (req, res) => {
-  // Your verify token. Should be a random string.
-  let VERIFY_TOKEN = 'mymyshopchatbot'
-  //curl -X GET "localhost:1337/webhook?hub.verify_token=EAAMj6ZA9o2XkBAJtjClr4yupQz8kZALbeDH0HlgecT9C5y76Q6NSmeWGsMhN5y9RdZBU87SbnXOXeVT1o8l9Gn2931fkFvNh0G45nEImt96bhH2h4W3099E4BS6cI9Q8neLQV9c2h9E3YCKSNer1Ab5InT7ZAyEsZC6TcrlgVdc6ZBE2aQWESxKNxveRRG5s0ZD&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
-  // Parse the query params
-  let mode = req.query['hub.mode']
-  let token = req.query['hub.verify_token']
-  let challenge = req.query['hub.challenge']
-
-  // Checks if a token and mode is in the query string of the request
-  if (mode && token) {
-    // Checks the mode and token sent is correct
-    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-      // Responds with the challenge token from the request
-      console.log('WEBHOOK_VERIFIED')
-      res.status(200).send(challenge)
-    } else {
-      // Responds with '403 Forbidden' if verify tokens do not match
-      res.sendStatus(403)
-    }
-  }
+bot.on('message', (payload, chat) => {
+  const text = payload.message.text
+  chat.say(`Echo: ${text}`)
 })
 
-// Sets server port and logs message on success
-app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'))
+bot.start()
