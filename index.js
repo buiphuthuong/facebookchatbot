@@ -58,7 +58,7 @@ const callSendAPI = async (sender_psid, response) => {
     },
     (err, res, body) => {
       if (!err) {
-        console.log('message sent 2!', res)
+        console.log('message sent 3!', res)
       } else {
         console.error('Unable to send message:' + err)
       }
