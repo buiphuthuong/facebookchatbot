@@ -48,14 +48,17 @@ const callSendAPI = async (sender_psid, response) => {
   // Send the HTTP request to the Messenger Platform
   await request(
     {
-      uri: 'https://graph.facebook.com/v2.6/me/messages',
-
+      uri: 'https://graph.facebook.com/v12.0/me/messages',
+      qs: {
+        access_token:
+          'EAAMj6ZA9o2XkBAPMmZBUysByZBYb6nLjm4LMSKHHIlaTpmx51guWy7RJudfKmWPFE5NkuhCV8ZC8ZBkRZB7fnZCCTtjr8xZA4f9ZBr3bPX3WawlEnBUZCNJBIifpziG6eU6Yt6AmcLtfacZBM4Ubh7RO7dHkFKi7E3RSCuwVI9v4NZAEA2YW7BsDwE5I7iKE18pHyNIZD'
+      },
       method: 'POST',
       json: request_body
     },
     (err, res, body) => {
       if (!err) {
-        console.log('message sent 2!')
+        console.log('message sent 2!', res)
       } else {
         console.error('Unable to send message:' + err)
       }
