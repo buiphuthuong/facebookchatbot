@@ -48,7 +48,7 @@ const callSendAPI = async (sender_psid, response) => {
   // Send the HTTP request to the Messenger Platform
   await request(
     {
-      uri: 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAMj6ZA9o2XkBAEdaCeI4AEoGVZAijRpvgr7u9QkegJBZAGkZB0r17hNz10aZCP7aHvZCmYNsPaxk27H1BrWcJaZBZAXupBp3CGP68ieDDfM1StpAN4kHbT1ZAPytEgtomDgmWesUyRLZBC74MvYw60YZC9zS52wAuxa72uZAx7uj5S65ZAqyVraZCCoZAvf03YrGi3TykZD',
+      uri: 'https://graph.facebook.com/v2.6/me/messages',
       qs: {
         access_token:
           'EAAMj6ZA9o2XkBAEdaCeI4AEoGVZAijRpvgr7u9QkegJBZAGkZB0r17hNz10aZCP7aHvZCmYNsPaxk27H1BrWcJaZBZAXupBp3CGP68ieDDfM1StpAN4kHbT1ZAPytEgtomDgmWesUyRLZBC74MvYw60YZC9zS52wAuxa72uZAx7uj5S65ZAqyVraZCCoZAvf03YrGi3TykZD'
