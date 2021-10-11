@@ -36,7 +36,7 @@ function handlePostback(sender_psid, received_postback) {
   callSendAPI(sender_psid, response)
 }
 // Sends response messages via the Send API
-function callSendAPI(sender_psid, response) {
+const callSendAPI = async (sender_psid, response) => {
   // Construct the message body
   let request_body = {
     recipient: {
@@ -46,7 +46,7 @@ function callSendAPI(sender_psid, response) {
   }
 
   // Send the HTTP request to the Messenger Platform
-  request(
+  await request(
     {
       uri: 'https://graph.facebook.com/v2.6/me/messages',
       qs: {
