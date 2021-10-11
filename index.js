@@ -46,7 +46,7 @@ const callSendAPI = async (sender_psid, response) => {
   }
 
   // Send the HTTP request to the Messenger Platform
-  await request(
+  request(
     {
       uri: 'https://graph.facebook.com/v2.6/me/messages',
       qs: {
