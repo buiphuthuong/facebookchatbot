@@ -27,9 +27,8 @@ app.post('/webhook', (req, res) => {
 // Adds support for GET requests to our webhook
 app.get('/webhook', (req, res) => {
   // Your verify token. Should be a random string.
-  let VERIFY_TOKEN =
-    'EAAMj6ZA9o2XkBAJtjClr4yupQz8kZALbeDH0HlgecT9C5y76Q6NSmeWGsMhN5y9RdZBU87SbnXOXeVT1o8l9Gn2931fkFvNh0G45nEImt96bhH2h4W3099E4BS6cI9Q8neLQV9c2h9E3YCKSNer1Ab5InT7ZAyEsZC6TcrlgVdc6ZBE2aQWESxKNxveRRG5s0ZD'
-
+  let VERIFY_TOKEN = 'mymyshopchatbot'
+  //curl -X GET "localhost:1337/webhook?hub.verify_token=EAAMj6ZA9o2XkBAJtjClr4yupQz8kZALbeDH0HlgecT9C5y76Q6NSmeWGsMhN5y9RdZBU87SbnXOXeVT1o8l9Gn2931fkFvNh0G45nEImt96bhH2h4W3099E4BS6cI9Q8neLQV9c2h9E3YCKSNer1Ab5InT7ZAyEsZC6TcrlgVdc6ZBE2aQWESxKNxveRRG5s0ZD&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
   // Parse the query params
   let mode = req.query['hub.mode']
   let token = req.query['hub.verify_token']
