@@ -20,7 +20,17 @@ bot.on(MessengerPlatform.Events.MESSAGE, function (userId, message) {
   // add code below.
   console.log(userId)
   console.log(message)
-  bot.sendTextMessage(userId, 'Hello world')
+  bot
+    .getProfile(userId)
+    .then(function (data) {
+      // add your code when success.
+
+      bot.sendTextMessage(userId, 'Hello world')
+    })
+    .catch(function (error) {
+      // add your code when error.
+      console.log(error)
+    })
 })
 server.listen(process.env.PORT || 1337, () =>
   console.log('webhook is listening')
