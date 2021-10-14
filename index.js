@@ -20,6 +20,7 @@ function handleMessage(sender_psid, received_message) {
   }
 
   // Sends the response message
+  sendRequest(response, 'POST')
   callSendAPI(sender_psid, response)
 }
 // Handles messaging_postbacks events
@@ -36,10 +37,11 @@ function handlePostback(sender_psid, received_postback) {
     response = { text: 'Oops, try sending another image.' }
   }
   // Send the message to acknowledge the postback
+
   callSendAPI(sender_psid, response)
 }
 // Sends response messages via the Send API
-const sendRequest = (body, endpoint, method) => {
+const sendRequest = (body, method) => {
   method = method || 'POST'
   return fetch(
     `https://graph.facebook.com/v2.12/me/messages?access_token=${accessToken}`,
@@ -74,7 +76,7 @@ const callSendAPI = async (sender_psid, response) => {
   }
 
   // Send the HTTP request to the Messenger Platform
-  console.log(request_body)
+  //console.log(request_body)
   request(
     {
       uri: 'https://graph.facebook.com/v2.12/me/messages',
