@@ -1,38 +1,157 @@
 'use strict'
-var MessengerPlatform = require('facebook-bot-messenger')
+const express = require('express')
+const bodyParser = require('body-parser')
+const request = require('request')
+const app = express().use(bodyParser.json())
 const accessToken =
   'EAAMj6ZA9o2XkBAEdaCeI4AEoGVZAijRpvgr7u9QkegJBZAGkZB0r17hNz10aZCP7aHvZCmYNsPaxk27H1BrWcJaZBZAXupBp3CGP68ieDDfM1StpAN4kHbT1ZAPytEgtomDgmWesUyRLZBC74MvYw60YZC9zS52wAuxa72uZAx7uj5S65ZAqyVraZCCoZAvf03YrGi3TykZD'
-const app = require('express')()
-const server = require('http').Server(app)
-const bot = MessengerPlatform.create(
-  {
-    pageID: '1747848738825682',
-    appID: '883911238932857',
-    appSecret: '7f4da98c38aa310f62e877178fe26444',
-    validationToken: 'mymyshopchatbot',
-    pageToken:
-      'EAAMj6ZA9o2XkBAI19cHsXa1YknPk9wJa4hD408QoFStm1ZBCyYQbdYnApQkIrPOdDTojF8Ta5loZA3QRQgfzV1qwGR2Dtp6H2PKAZCqNpMZBzZCfJVyukZAjSCxonQZCZAL8CkTG1rDrfBZB8R17PBVZBoC4B6gLDbw6ZAwZBpOJbhBi6wmjkArRkSGTaq4RghtJ00VMZD'
-  },
-  server
-)
-app.use(bot.webhook('/webhook'))
-bot.on(MessengerPlatform.Events.MESSAGE, function (userId, message) {
-  // add code below.
-  console.log(userId)
-  console.log(message)
-  bot
-    .getProfile(userId)
-    .then(function (data) {
-      // add your code when success.
+const fetch = require('node-fetch')
+// Handles messages events
+function handleMessage(sender_psid, received_message) {
+  let response
 
-      bot.sendTextMessage(userId, 'Hello world')
+  // Check if the message contains text
+  if (received_message.text) {
+    // Create the payload for a basic text message
+    response = {
+      text: `You sent the message: "${received_message.text}". Now send me an image!`
+    }
+  }
+
+  // Sends the response message
+  // sendRequest(response, 'POST')
+  callSendAPI(sender_psid, response)
+}
+// Handles messaging_postbacks events
+function handlePostback(sender_psid, received_postback) {
+  let response
+
+  // Get the payload for the postback
+  let payload = received_postback.payload
+
+  // Set the response based on the postback payload
+  if (payload === 'yes') {
+    response = { text: 'Thanks!' }
+  } else if (payload === 'no') {
+    response = { text: 'Oops, try sending another image.' }
+  }
+  // Send the message to acknowledge the postback
+
+  callSendAPI(sender_psid, response)
+}
+// Sends response messages via the Send API
+const sendRequest = (body, method) => {
+  method = method || 'POST'
+  return fetch(
+    `https://graph.facebook.com/v2.12/me/messages?access_token=${accessToken}`,
+    {
+      method,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    }
+  )
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.error) {
+        console.log(
+          'Messenger Error received. For more information about error codes, see: https://goo.gl/d76uvB'
+        )
+        console.log(res.error)
+      }
+      return res
     })
-    .catch(function (error) {
-      // add your code when error.
-      console.log(error)
+    .catch((err) => console.log(`Error sending message: ${err}`))
+}
+
+const callSendAPI = async (sender_psid, response) => {
+  // Construct the message body
+  let request_body = {
+    recipient: {
+      id: sender_psid
+    },
+    message: response
+  }
+
+  // Send the HTTP request to the Messenger Platform
+  //console.log(request_body)
+  request(
+    {
+      uri: 'https://graph.facebook.com/v2.12/me/messages',
+      qs: {
+        access_token:
+          'EAAMj6ZA9o2XkBAEdaCeI4AEoGVZAijRpvgr7u9QkegJBZAGkZB0r17hNz10aZCP7aHvZCmYNsPaxk27H1BrWcJaZBZAXupBp3CGP68ieDDfM1StpAN4kHbT1ZAPytEgtomDgmWesUyRLZBC74MvYw60YZC9zS52wAuxa72uZAx7uj5S65ZAqyVraZCCoZAvf03YrGi3TykZD'
+      },
+      method: 'POST',
+      json: request_body
+    },
+    (err, res, body) => {
+      if (!err) {
+        console.log('message sent 4!')
+      } else {
+        console.error('Unable to send message:' + err)
+      }
+    }
+  )
+}
+
+app.post('/webhook', (req, res) => {
+  let body = req.body
+
+  // Checks this is an event from a page subscription
+  if (body.object === 'page') {
+    // Iterates over each entry - there may be multiple if batched
+
+    body.entry.forEach(function (entry) {
+      // Gets the body of the webhook event
+      let webhook_event = entry.messaging[0]
+      console.log(webhook_event)
+
+      // Get the sender PSID
+      let sender_psid = webhook_event.sender.id
+      console.log('Sender PSID: ' + sender_psid)
+
+      // Check if the event is a message or postback and
+      // pass the event to the appropriate handler function
+      if (webhook_event.message) {
+        handleMessage(sender_psid, webhook_event.message)
+      } else if (webhook_event.postback) {
+        handlePostback(sender_psid, webhook_event.postback)
+      }
     })
+
+    // Returns a '200 OK' response to all requests
+    res.status(200).send('EVENT_RECEIVED')
+  } else {
+    // Returns a '404 Not Found' if event is not from a page subscription
+    res.sendStatus(404)
+  }
 })
-server.listen(process.env.PORT || 1337, () =>
-  console.log('webhook is listening')
-)
+
+// Adds support for GET requests to our webhook
+app.get('/webhook', (req, res) => {
+  // Your verify token. Should be a random string.
+  let VERIFY_TOKEN = 'mymyshopchatbot'
+  //curl -X GET "localhost:1337/webhook?hub.verify_token=EAAMj6ZA9o2XkBAJtjClr4yupQz8kZALbeDH0HlgecT9C5y76Q6NSmeWGsMhN5y9RdZBU87SbnXOXeVT1o8l9Gn2931fkFvNh0G45nEImt96bhH2h4W3099E4BS6cI9Q8neLQV9c2h9E3YCKSNer1Ab5InT7ZAyEsZC6TcrlgVdc6ZBE2aQWESxKNxveRRG5s0ZD&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
+  // Parse the query params
+  let mode = req.query['hub.mode']
+  let token = req.query['hub.verify_token']
+  let challenge = req.query['hub.challenge']
+
+  // Checks if a token and mode is in the query string of the request
+  if (mode && token) {
+    // Checks the mode and token sent is correct
+    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+      // Responds with the challenge token from the request
+      console.log('WEBHOOK_VERIFIED')
+      res.status(200).send(challenge)
+    } else {
+      // Responds with '403 Forbidden' if verify tokens do not match
+      res.sendStatus(403)
+    }
+  }
+})
+
 // Sets server port and logs message on success
+app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'))
