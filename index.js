@@ -52,7 +52,7 @@ const callSendAPI = async (sender_psid, response) => {
       uri: 'https://graph.facebook.com/v2.6/me/messages',
       qs: {
         access_token:
-          'EAASKcYQdCkYBAGPXidK0rH24wRcOHXMSh2JYtamtoH6rsTWwrn9EUWqiXq2gHNOB7hoRUBxTN7o5CcibnfAB16eJMtEwePZCsLJL7LGUAsTVGpJYLQPfYpeDeZBbWaUvoKEZCYW6IXnQlc56QcZAL21zl85WcyjfHcgGpyTlgexQIjHCGvmefdnFZAGNeIqYZD'
+          'EAAMj6ZA9o2XkBAFx5CGQT1fcjICTnlC3LwTASLaZCrF5H3r293ii1X1OVPoNakPDZAFRsLdauQmnr1KUz2svpwgdQWBrQQE7JrsPAxcMQ7Pj4u67m0wRmzwA9XxYcAhUT8jEx1w7fWi9GgnWoCXPcrtZCY3ey9eOY8BrH26CtmtZC0CRh2bFtfVSYi9jdO5wZD'
       },
       method: 'POST',
       json: request_body
