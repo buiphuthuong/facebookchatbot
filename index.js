@@ -18,7 +18,9 @@ const bot = MessengerPlatform.create(
 app.use(bot.webhook('/webhook'))
 bot.on(MessengerPlatform.Events.MESSAGE, function (userId, message) {
   // add code below.
-  bot.sendTextMessage(userId, message)
+  console.log(userId)
+  console.log(message)
+  //bot.sendTextMessage(userId, message)
 })
 server.listen(process.env.PORT || 1337, () =>
   console.log('webhook is listening')
