@@ -77,24 +77,46 @@ const callSendAPI = async (sender_psid, response) => {
   // Send the HTTP request to the Messenger Platform
   //console.log(request_body)
 
-  return request(
+  return fetch(
+    `https://graph.facebook.com/v2.12/me/messages?access_token=${accessToken}`,
     {
-      uri: 'https://graph.facebook.com/v2.12/me/messages',
-      qs: {
-        access_token:
-          'EAAMj6ZA9o2XkBAEdaCeI4AEoGVZAijRpvgr7u9QkegJBZAGkZB0r17hNz10aZCP7aHvZCmYNsPaxk27H1BrWcJaZBZAXupBp3CGP68ieDDfM1StpAN4kHbT1ZAPytEgtomDgmWesUyRLZBC74MvYw60YZC9zS52wAuxa72uZAx7uj5S65ZAqyVraZCCoZAvf03YrGi3TykZD'
-      },
       method: 'POST',
-      json: request_body
-    },
-    (err, res, body) => {
-      if (!err) {
-        console.log('message sent 4!')
-      } else {
-        console.error('Unable to send message:' + err)
-      }
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(request_body)
     }
   )
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.error) {
+        console.log(
+          'Messenger Error received. For more information about error codes, see: https://goo.gl/d76uvB'
+        )
+        console.log(res.error)
+      }
+      return res
+    })
+    .catch((err) => console.log(`Error sending message: ${err}`))
+
+  // return request(
+  //   {
+  //     uri: 'https://graph.facebook.com/v2.12/me/messages',
+  //     qs: {
+  //       access_token:
+  //         'EAAMj6ZA9o2XkBAEdaCeI4AEoGVZAijRpvgr7u9QkegJBZAGkZB0r17hNz10aZCP7aHvZCmYNsPaxk27H1BrWcJaZBZAXupBp3CGP68ieDDfM1StpAN4kHbT1ZAPytEgtomDgmWesUyRLZBC74MvYw60YZC9zS52wAuxa72uZAx7uj5S65ZAqyVraZCCoZAvf03YrGi3TykZD'
+  //     },
+  //     method: 'POST',
+  //     json: request_body
+  //   },
+  //   (err, res, body) => {
+  //     if (!err) {
+  //       console.log('message sent 4!')
+  //     } else {
+  //       console.error('Unable to send message:' + err)
+  //     }
+  //   }
+  // )
 }
 
 app.post('/webhook', (req, res) => {
