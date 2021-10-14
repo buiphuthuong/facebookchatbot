@@ -3,7 +3,10 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express().use(bodyParser.json())
-
+const BootBot = require('bootbot')
+const accessToken =
+  'EAAMj6ZA9o2XkBAEdaCeI4AEoGVZAijRpvgr7u9QkegJBZAGkZB0r17hNz10aZCP7aHvZCmYNsPaxk27H1BrWcJaZBZAXupBp3CGP68ieDDfM1StpAN4kHbT1ZAPytEgtomDgmWesUyRLZBC74MvYw60YZC9zS52wAuxa72uZAx7uj5S65ZAqyVraZCCoZAvf03YrGi3TykZD'
+const fetch = require('node-fetch')
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
   let response
@@ -36,6 +39,31 @@ function handlePostback(sender_psid, received_postback) {
   callSendAPI(sender_psid, response)
 }
 // Sends response messages via the Send API
+const sendRequest = (body, endpoint, method) => {
+  method = method || 'POST'
+  return fetch(
+    `https://graph.facebook.com/v2.12/me/messages?access_token=${accessToken}`,
+    {
+      method,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    }
+  )
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.error) {
+        console.log(
+          'Messenger Error received. For more information about error codes, see: https://goo.gl/d76uvB'
+        )
+        console.log(res.error)
+      }
+      return res
+    })
+    .catch((err) => console.log(`Error sending message: ${err}`))
+}
+
 const callSendAPI = async (sender_psid, response) => {
   // Construct the message body
   let request_body = {
@@ -49,7 +77,7 @@ const callSendAPI = async (sender_psid, response) => {
   console.log(request_body)
   request(
     {
-      uri: 'https://graph.facebook.com/v2.6/me/messages',
+      uri: 'https://graph.facebook.com/v2.12/me/messages',
       qs: {
         access_token:
           'EAAMj6ZA9o2XkBAEdaCeI4AEoGVZAijRpvgr7u9QkegJBZAGkZB0r17hNz10aZCP7aHvZCmYNsPaxk27H1BrWcJaZBZAXupBp3CGP68ieDDfM1StpAN4kHbT1ZAPytEgtomDgmWesUyRLZBC74MvYw60YZC9zS52wAuxa72uZAx7uj5S65ZAqyVraZCCoZAvf03YrGi3TykZD'
