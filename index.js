@@ -84,7 +84,7 @@ const callSendAPI = async (sender_psid, response) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(request_body)
+      body: request_body
     }
   )
     .then((res) => res.json())
