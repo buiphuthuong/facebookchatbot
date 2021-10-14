@@ -49,7 +49,7 @@ const callSendAPI = async (sender_psid, response) => {
   console.log(request_body)
   request(
     {
-      uri: 'https://graph.facebook.com/v12.0/me/messages',
+      uri: 'https://graph.facebook.com/v11.0/me/messages',
       qs: {
         access_token:
           'EAASKcYQdCkYBAGPXidK0rH24wRcOHXMSh2JYtamtoH6rsTWwrn9EUWqiXq2gHNOB7hoRUBxTN7o5CcibnfAB16eJMtEwePZCsLJL7LGUAsTVGpJYLQPfYpeDeZBbWaUvoKEZCYW6IXnQlc56QcZAL21zl85WcyjfHcgGpyTlgexQIjHCGvmefdnFZAGNeIqYZD'
