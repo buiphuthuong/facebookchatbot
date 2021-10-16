@@ -102,44 +102,10 @@ function handleMessage(senderPsid, receivedMessage) {
 
   // Checks if the message contains text
   if (receivedMessage.text) {
-    // proccess message Here
-
     // Create the payload for a basic text message, which
     // will be added to the body of your request to the Send API
-    // response = {
-    //   text: `You sent the message: '${receivedMessage.text}'. Now send me an attachment!`
-    // }
     response = {
-      attachment: {
-        type: 'template',
-        payload: {
-          template_type: 'generic',
-          elements: [
-            {
-              title: 'Welcome!',
-              image_url: 'https://petersfancybrownhats.com/company_image.png',
-              subtitle: 'We have the right hat for everyone.',
-              default_action: {
-                type: 'web_url',
-                url: 'https://petersfancybrownhats.com/view?item=103',
-                webview_height_ratio: 'tall'
-              },
-              buttons: [
-                {
-                  type: 'web_url',
-                  url: 'https://petersfancybrownhats.com',
-                  title: 'View Website'
-                },
-                {
-                  type: 'postback',
-                  title: 'Start Chatting',
-                  payload: 'DEVELOPER_DEFINED_PAYLOAD'
-                }
-              ]
-            }
-          ]
-        }
-      }
+      text: `You sent the message: '${receivedMessage.text}'. Now send me an attachment!`
     }
   } else if (receivedMessage.attachments) {
     // Get the URL of the message attachment
