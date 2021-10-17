@@ -100,47 +100,118 @@ app.post('/webhook', (req, res) => {
 function handleMessage(senderPsid, receivedMessage) {
   let response
 
+  const response1 = {
+    attachment: {
+      type: 'template',
+      payload: {
+        template_type: 'generic',
+        elements: [
+          {
+            title: 'Chào bạn! Bạn cần mua hàng hay hỗ trợ ạ!',
+            subtitle: 'Nhấn nút để trả lời ạ!',
+            image_url: attachmentUrl,
+            buttons: [
+              {
+                type: 'postback',
+                title: 'Cần mua hàng',
+                payload: 'can-mua-hang'
+              },
+              {
+                type: 'postback',
+                title: 'Hỗ trợ!',
+                payload: 'ho-tro'
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+
+  const response2 = {
+    attachment: {
+      type: 'template',
+      payload: {
+        template_type: 'generic',
+        elements: [
+          {
+            title: 'Vui lòng chọn loại sản phẩm bạn muốn mua',
+            subtitle: 'Nhấn nút để trả lời ạ!',
+            image_url: attachmentUrl,
+            buttons: [
+              {
+                type: 'postback',
+                title: 'Quần áo nam',
+                payload: 'quan-ao-nam'
+              },
+              {
+                type: 'postback',
+                title: 'Quần áo nữ',
+                payload: 'quan-ao-nu'
+              },
+              {
+                type: 'postback',
+                title: 'Giày Dép',
+                payload: 'giay-dep'
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
   // Checks if the message contains text
   if (receivedMessage.text) {
     // proccess message Here
+    // let message = receivedMessage.text;
+    // switch (message) {
+    //   case value:
 
-    // Create the payload for a basic text message, which
+    //     break;
+
+    //   default:
+    //     break;
+    // }
+    // const result = message.includes('question')
+    // // Create the payload for a basic text message, which
     // will be added to the body of your request to the Send API
     // response = {
     //   text: `You sent the message: '${receivedMessage.text}'. Now send me an attachment!`
     // }
-    response = {
-      attachment: {
-        type: 'template',
-        payload: {
-          template_type: 'generic',
-          elements: [
-            {
-              title: 'Welcome!',
-              image_url: 'https://petersfancybrownhats.com/company_image.png',
-              subtitle: 'We have the right hat for everyone.',
-              default_action: {
-                type: 'web_url',
-                url: 'https://petersfancybrownhats.com/view?item=103',
-                webview_height_ratio: 'tall'
-              },
-              buttons: [
-                {
-                  type: 'web_url',
-                  url: 'https://petersfancybrownhats.com',
-                  title: 'View Website'
-                },
-                {
-                  type: 'postback',
-                  title: 'Start Chatting',
-                  payload: 'DEVELOPER_DEFINED_PAYLOAD'
-                }
-              ]
-            }
-          ]
-        }
-      }
-    }
+
+    response = response1
+    // response = {
+    //   attachment: {
+    //     type: 'template',
+    //     payload: {
+    //       template_type: 'generic',
+    //       elements: [
+    //         {
+    //           title: 'Welcome!',
+    //           image_url: 'https://petersfancybrownhats.com/company_image.png',
+    //           subtitle: 'We have the right hat for everyone.',
+    //           default_action: {
+    //             type: 'web_url',
+    //             url: 'https://petersfancybrownhats.com/view?item=103',
+    //             webview_height_ratio: 'tall'
+    //           },
+    //           buttons: [
+    //             {
+    //               type: 'web_url',
+    //               url: 'https://petersfancybrownhats.com',
+    //               title: 'View Website'
+    //             },
+    //             {
+    //               type: 'postback',
+    //               title: 'Start Chatting',
+    //               payload: 'DEVELOPER_DEFINED_PAYLOAD'
+    //             }
+    //           ]
+    //         }
+    //       ]
+    //     }
+    //   }
+    // }
   } else if (receivedMessage.attachments) {
     // Get the URL of the message attachment
     let attachmentUrl = receivedMessage.attachments[0].payload.url
