@@ -109,7 +109,7 @@ function handleMessage(senderPsid, receivedMessage) {
           {
             title: 'Chào bạn! Bạn cần mua hàng hay hỗ trợ ạ!',
             subtitle: 'Nhấn nút để trả lời ạ!',
-            // image_url: attachmentUrl,
+            image_url: 'https://petersfancybrownhats.com/company_image.png',
             buttons: [
               {
                 type: 'postback',
@@ -162,37 +162,11 @@ function handleMessage(senderPsid, receivedMessage) {
   }
   // Checks if the message contains text
   if (receivedMessage.text) {
+    console.log(receivedMessage)
     response = response1
   } else if (receivedMessage.attachments) {
+    console.log('att', receivedMessage)
     // Get the URL of the message attachment
-    let attachmentUrl = receivedMessage.attachments[0].payload.url
-    response = {
-      attachment: {
-        type: 'template',
-        payload: {
-          template_type: 'generic',
-          elements: [
-            {
-              title: 'Is this the right picture?',
-              subtitle: 'Tap a button to answer.',
-              image_url: attachmentUrl,
-              buttons: [
-                {
-                  type: 'postback',
-                  title: 'Yes!',
-                  payload: 'yes'
-                },
-                {
-                  type: 'postback',
-                  title: 'No!',
-                  payload: 'no'
-                }
-              ]
-            }
-          ]
-        }
-      }
-    }
   }
 
   // Send the response message
