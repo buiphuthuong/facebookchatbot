@@ -137,7 +137,7 @@ function handleMessage(senderPsid, receivedMessage) {
           {
             title: 'Vui lòng chọn loại sản phẩm bạn muốn mua',
             subtitle: 'Nhấn nút để trả lời ạ!',
-            image_url: attachmentUrl,
+            image_url: '',
             buttons: [
               {
                 type: 'postback',
