@@ -109,7 +109,6 @@ function handleMessage(senderPsid, receivedMessage) {
           {
             title: 'Chào bạn! Bạn cần mua hàng hay hỗ trợ ạ!',
             subtitle: 'Nhấn nút để trả lời ạ!',
-            image_url: 'https://petersfancybrownhats.com/company_image.png',
             buttons: [
               {
                 type: 'postback',
@@ -137,7 +136,6 @@ function handleMessage(senderPsid, receivedMessage) {
           {
             title: 'Vui lòng chọn loại sản phẩm bạn muốn mua',
             subtitle: 'Nhấn nút để trả lời ạ!',
-            image_url: '',
             buttons: [
               {
                 type: 'postback',
