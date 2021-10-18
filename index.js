@@ -126,11 +126,11 @@ function handlePostback(senderPsid, receivedPostback) {
   console.log('receivedPostback', receivedPostback)
   // Set the response based on the postback payload
   switch (payload) {
-    case payload === 'shopping':
+    case 'shopping':
       response = responseProductType
-    case payload === 'product-type':
+    case 'product-type':
       response = responseProductType
-    case payload === 'support':
+    case 'support':
       response = responseProductType
 
     default:
