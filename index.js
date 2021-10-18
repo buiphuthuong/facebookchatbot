@@ -161,13 +161,14 @@ function handleMessage(senderPsid, receivedMessage) {
     let result = ''
     switch (typeMessage) {
       case 'XIN_CHAO':
-        result =
-          'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
-        response = result
+        response = {
+          text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
+        }
+
       case 'KET_THUC':
-        result =
-          'Rất vui được hỗ trợ cho bạn, Cảm ơn bạn đã quan tâm đến shop. Chúc bạn một ngày tốt lành, hẹn sớm gặp lại!'
-        response = result
+        response = {
+          text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
+        }
 
       default:
         result =
