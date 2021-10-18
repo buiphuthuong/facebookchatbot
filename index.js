@@ -28,7 +28,11 @@ const request = require('request'),
   { urlencoded, json } = require('body-parser'),
   app = express()
 
-const { responseFirstQuestion, responseProductType } = require('./response')
+const {
+  responseFirstQuestion,
+  responseProductType,
+  responseFeedBack
+} = require('./response')
 // Parse application/x-www-form-urlencoded
 app.use(urlencoded({ extended: true }))
 
@@ -210,6 +214,8 @@ async function handlePostback(senderPsid, receivedPostback) {
       }
     }
     response = responseProductList
+  } else if (payload === 'support') {
+    response = responseFeedBack
   }
   if (payload === 'yes') {
     response = { text: 'Thanks!' }
