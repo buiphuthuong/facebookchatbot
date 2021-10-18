@@ -63,7 +63,7 @@ const getProducts = async (cat) => {
         : 'https://cmscart-server.herokuapp.com/api/products'
     )
     //  console.log(res.data)
-    console.log('aaa')
+    // console.log('aaa')
     res.data.forEach((element) => {
       let elementObj = {
         title: 'Classic T-Shirt Collection',
@@ -183,6 +183,7 @@ function handlePostback(senderPsid, receivedPostback) {
       response = responseProductType
     case 'quan-ao-nam':
       const elementArray = getProducts('tshirt')
+      console.log(elementArray)
       const responseProductList = {
         attachment: {
           type: 'template',
