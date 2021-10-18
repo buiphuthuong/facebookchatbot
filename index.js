@@ -73,7 +73,7 @@ const getProducts = async (cat) => {
       let elementObj = {
         title: element.title,
         image_url: element.img,
-        subtitle: 'We have the right hat for everyone.',
+        subtitle: element.desc,
         default_action: {
           type: 'web_url',
           url: 'https://petersfancybrownhats.com/view?item=103',
@@ -82,13 +82,8 @@ const getProducts = async (cat) => {
         buttons: [
           {
             type: 'web_url',
-            url: 'https://petersfancybrownhats.com',
-            title: 'View Website'
-          },
-          {
-            type: 'postback',
-            title: 'Start Chatting',
-            payload: 'DEVELOPER_DEFINED_PAYLOAD'
+            url: `https://serene-leavitt-e5a5ec.netlify.app/product/${element._id}`,
+            title: 'Xem Ngay'
           }
         ]
       }
