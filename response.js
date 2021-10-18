@@ -1,4 +1,4 @@
-export const response1 = {
+const response1 = {
   attachment: {
     type: 'template',
     payload: {
@@ -25,7 +25,7 @@ export const response1 = {
   }
 }
 
-export const response2 = {
+const response2 = {
   attachment: {
     type: 'template',
     payload: {
@@ -56,3 +56,5 @@ export const response2 = {
     }
   }
 }
+
+module.exports = { response1, response2 }
