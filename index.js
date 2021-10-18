@@ -159,6 +159,7 @@ function handleMessage(senderPsid, receivedMessage) {
     }
   }
   // Checks if the message contains text
+  console.log('receivedMessage', receivedMessage)
   if (receivedMessage.text) {
     console.log(receivedMessage)
     response = response1
