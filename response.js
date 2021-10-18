@@ -47,6 +47,14 @@ const responseProductType = {
             }
           ]
         }
+      ],
+
+      buttons: [
+        {
+          title: 'View More',
+          type: 'postback',
+          payload: 'payload'
+        }
       ]
     }
   }
