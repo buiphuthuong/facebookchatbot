@@ -40,24 +40,7 @@ app.use(urlencoded({ extended: true }))
 app.use(json())
 
 const axios = require('axios')
-// [
-//   {
-//     title: 'Classic T-Shirt Collection',
-//     subtitle: 'See all our colors',
-//     image_url:
-//       'https://peterssendreceiveapp.ngrok.io/img/collection.png',
-//     buttons: [
-//       {
-//         title: 'View',
-//         type: 'web_url',
-//         url: 'https://peterssendreceiveapp.ngrok.io/collection',
-//         messenger_extensions: true,
-//         webview_height_ratio: 'tall',
-//         fallback_url: 'https://peterssendreceiveapp.ngrok.io/'
-//       }
-//     ]
-//   }
-//]
+
 const getProducts = async (cat) => {
   let elementArray = []
   try {
@@ -162,11 +145,32 @@ function handleMessage(senderPsid, receivedMessage) {
   let response
 
   // Checks if the message contains text
-  console.log('receivedMessage aaa', receivedMessage)
-  console.log('receivedMessage text', receivedMessage.text)
+  let typeMessage = ''
   if (receivedMessage.text) {
-    console.log(receivedMessage)
-    response = responseFirstQuestion
+    const message = receivedMessage.text
+    if (
+      message.includes('hi') ||
+      message.includes('hello') ||
+      message.includes('chao shop')
+    ) {
+      typeMessage = 'XIN_CHAO'
+    } else if (message.includes('bye') || message.includes('tam biet')) {
+      typeMessage = 'KET_THUC'
+    }
+    let result = ''
+    switch (typeMessage) {
+      case 'XIN_CHAO':
+        result =
+          'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
+        response = result
+      case 'KET_THUC':
+        result =
+          'Rất vui được hỗ trợ cho bạn, Cảm ơn bạn đã quan tâm đến shop. Chúc bạn một ngày tốt lành, hẹn sớm gặp lại!'
+        response = result
+
+      default:
+        response = responseFirstQuestion
+    }
   } else if (receivedMessage.attachments) {
     console.log('att', receivedMessage)
     // Get the URL of the message attachment
