@@ -181,7 +181,7 @@ function handlePostback(senderPsid, receivedPostback) {
     response = responseProductType
   } else if (payload === 'quan-ao-nam') {
     const elementArray = getProducts('tshirt')
-    // console.log(elementArray)
+    console.log('elementArray', elementArray)
     const responseProductList = {
       attachment: {
         type: 'template',
