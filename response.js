@@ -25,6 +25,38 @@ const responseFirstQuestion = {
   }
 }
 
+const responseProductType = {
+  attachment: {
+    type: 'template',
+    payload: {
+      template_type: 'generic',
+      elements: [
+        {
+          title: 'Vui lòng chọn loại sản phẩm bạn muốn mua',
+          subtitle: 'Nhấn nút để trả lời ạ!',
+          buttons: [
+            {
+              type: 'postback',
+              title: 'Quần áo nam',
+              payload: 'quan-ao-nam'
+            },
+            {
+              type: 'postback',
+              title: 'Quần áo nữ',
+              payload: 'quan-ao-nu'
+            },
+            {
+              type: 'postback',
+              title: 'Giày Dép',
+              payload: 'giay-dep'
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+
 const responseFeedBack = {
   attachment: {
     type: 'template',
@@ -57,40 +89,6 @@ const responseFeedBack = {
         url: 'https://www.example.com'
       },
       expires_in_days: 3 // Optional, default 1 day, business defines 1-7 days
-    }
-  }
-}
-const responseProductType = {
-  attachment: {
-    type: 'template',
-    payload: {
-      template_type: 'list',
-      top_element_style: 'compact',
-      elements: [
-        {
-          title: 'Classic T-Shirt Collection',
-          subtitle: 'See all our colors',
-          image_url: 'https://peterssendreceiveapp.ngrok.io/img/collection.png',
-          buttons: [
-            {
-              title: 'View',
-              type: 'web_url',
-              url: 'https://peterssendreceiveapp.ngrok.io/collection',
-              messenger_extensions: true,
-              webview_height_ratio: 'tall',
-              fallback_url: 'https://peterssendreceiveapp.ngrok.io/'
-            }
-          ]
-        }
-      ],
-
-      buttons: [
-        {
-          title: 'View More',
-          type: 'postback',
-          payload: 'payload'
-        }
-      ]
     }
   }
 }
