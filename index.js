@@ -87,7 +87,7 @@ const getProducts = async (cat) => {
     console.log(error)
   }
 }
-getProducts('tshirt')
+
 // Respond with 'Hello World' when a GET request is made to the homepage
 app.get('/', function (_req, res) {
   res.send('Hello World')
@@ -176,7 +176,6 @@ function handlePostback(senderPsid, receivedPostback) {
   // Get the payload for the postback
   let payload = receivedPostback.payload
   console.log('payload', payload)
-  console.log('receivedPostback', receivedPostback)
   // Set the response based on the postback payload
   switch (payload) {
     case 'shopping':
@@ -194,7 +193,7 @@ function handlePostback(senderPsid, receivedPostback) {
           }
         }
       }
-      response = responseProductList
+      response = responseFirstQuestion
     case 'support':
       response = responseProductType
 
