@@ -181,7 +181,7 @@ function handlePostback(senderPsid, receivedPostback) {
   switch (payload) {
     case 'shopping':
       response = responseProductType
-    case 'product-type':
+    case 'quan-ao-nam':
       const elementArray = getProducts('tshirt')
       const responseProductList = {
         attachment: {
