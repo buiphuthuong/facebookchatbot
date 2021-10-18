@@ -214,7 +214,7 @@ async function handlePostback(senderPsid, receivedPostback) {
   if (payload === 'yes') {
     response = { text: 'Thanks!' }
   } else if (payload === 'no') {
-    response = { text: 'Oops, try sending another image.' }
+    response = { text: 'Oops, try sending another imag2e.' }
   }
   // Send the message to acknowledge the postback
   callSendAPI(senderPsid, response)
