@@ -76,7 +76,7 @@ const getProducts = async (cat) => {
         subtitle: element.desc,
         default_action: {
           type: 'web_url',
-          url: 'https://petersfancybrownhats.com/view?item=103',
+          url: `https://serene-leavitt-e5a5ec.netlify.app/product/${element._id}`,
           webview_height_ratio: 'tall'
         },
         buttons: [
