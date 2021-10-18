@@ -177,30 +177,10 @@ function handlePostback(senderPsid, receivedPostback) {
   let payload = receivedPostback.payload
   console.log('payload', payload)
   // Set the response based on the postback payload
-  switch (payload) {
-    case 'shopping':
-      console.log('shopping', payload)
-      response = responseProductType
-    case 'quan-ao-nam':
-      console.log('aaaa')
-      // const elementArray = getProducts('tshirt')
-      // console.log(elementArray)
-      // const responseProductList = {
-      //   attachment: {
-      //     type: 'template',
-      //     payload: {
-      //       template_type: 'list',
-      //       top_element_style: 'compact',
-      //       elements: elementArray
-      //     }
-      //   }
-      // }
-      response = { text: 'Thanks!' }
-    case 'support':
-      response = responseProductType
-
-    default:
-      break
+  if (payload === 'shopping') {
+    response = responseProductType
+  } else if (payload === 'quan-ao-nam') {
+    response = { text: 'Oops, try sending another image.' }
   }
   if (payload === 'yes') {
     response = { text: 'Thanks!' }
