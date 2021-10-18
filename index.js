@@ -28,7 +28,7 @@ const request = require('request'),
   { urlencoded, json } = require('body-parser'),
   app = express()
 
-const { response1, response2 } = require('./response')
+const { responseCanMuaHang, responseProductType } = require('./response')
 // Parse application/x-www-form-urlencoded
 app.use(urlencoded({ extended: true }))
 
@@ -106,7 +106,7 @@ function handleMessage(senderPsid, receivedMessage) {
   console.log('receivedMessage text', receivedMessage.text)
   if (receivedMessage.text) {
     console.log(receivedMessage)
-    response = response1
+    response = responseCanMuaHang
   } else if (receivedMessage.attachments) {
     console.log('att', receivedMessage)
     // Get the URL of the message attachment
@@ -123,10 +123,15 @@ function handlePostback(senderPsid, receivedPostback) {
   // Get the payload for the postback
   let payload = receivedPostback.payload
   console.log('payload', payload)
+  console.log('receivedPostback', receivedPostback)
   // Set the response based on the postback payload
   switch (payload) {
-    case 'can-mua-hang':
-      response = response2
+    case 'shopping':
+      response = responseProductType
+    case 'product-type':
+      response = responseProductType
+    case 'support':
+      response = responseProductType
 
     default:
       break

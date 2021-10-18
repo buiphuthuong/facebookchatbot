@@ -1,4 +1,4 @@
-const response1 = {
+const responseFirstQuestion = {
   attachment: {
     type: 'template',
     payload: {
@@ -11,12 +11,12 @@ const response1 = {
             {
               type: 'postback',
               title: 'Cần mua hàng',
-              payload: 'can-mua-hang'
+              payload: 'shopping'
             },
             {
               type: 'postback',
               title: 'Hỗ trợ!',
-              payload: 'ho-tro'
+              payload: 'support'
             }
           ]
         }
@@ -25,7 +25,7 @@ const response1 = {
   }
 }
 
-const response2 = {
+const responseProductType = {
   attachment: {
     type: 'template',
     payload: {
@@ -38,17 +38,20 @@ const response2 = {
             {
               type: 'postback',
               title: 'Quần áo nam',
-              payload: 'quan-ao-nam'
+              payload: 'quan-ao-nam',
+              type: 'quan-ao'
             },
             {
               type: 'postback',
               title: 'Quần áo nữ',
-              payload: 'quan-ao-nu'
+              payload: 'quan-ao-nu',
+              type: 'quan-ao'
             },
             {
               type: 'postback',
               title: 'Giày Dép',
-              payload: 'giay-dep'
+              payload: 'giay-dep',
+              type: 'giay-dep'
             }
           ]
         }
@@ -57,4 +60,4 @@ const response2 = {
   }
 }
 
-module.exports = { response1, response2 }
+module.exports = { responseCanMuaHang, responseProductType }
