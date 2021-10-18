@@ -35,6 +35,59 @@ app.use(urlencoded({ extended: true }))
 // Parse application/json
 app.use(json())
 
+const axios = require('axios')
+// [
+//   {
+//     title: 'Classic T-Shirt Collection',
+//     subtitle: 'See all our colors',
+//     image_url:
+//       'https://peterssendreceiveapp.ngrok.io/img/collection.png',
+//     buttons: [
+//       {
+//         title: 'View',
+//         type: 'web_url',
+//         url: 'https://peterssendreceiveapp.ngrok.io/collection',
+//         messenger_extensions: true,
+//         webview_height_ratio: 'tall',
+//         fallback_url: 'https://peterssendreceiveapp.ngrok.io/'
+//       }
+//     ]
+//   }
+//]
+const getProducts = async (cat) => {
+  let elementArray = []
+  try {
+    const res = await axios.get(
+      cat
+        ? `https://cmscart-server.herokuapp.com/api/products?category=${cat}`
+        : 'https://cmscart-server.herokuapp.com/api/products'
+    )
+    //  console.log(res.data)
+    console.log('aaa')
+    res.data.forEach((element) => {
+      let elementObj = {
+        title: 'Classic T-Shirt Collection',
+        subtitle: 'See all our colors',
+        image_url: 'https://peterssendreceiveapp.ngrok.io/img/collection.png',
+        buttons: [
+          {
+            title: 'View',
+            type: 'web_url',
+            url: 'https://peterssendreceiveapp.ngrok.io/collection',
+            messenger_extensions: true,
+            webview_height_ratio: 'tall',
+            fallback_url: 'https://peterssendreceiveapp.ngrok.io/'
+          }
+        ]
+      }
+      elementArray.push(elementObj)
+    })
+    return elementArray
+  } catch (error) {
+    console.log(error)
+  }
+}
+getProducts('tshirt')
 // Respond with 'Hello World' when a GET request is made to the homepage
 app.get('/', function (_req, res) {
   res.send('Hello World')
@@ -129,7 +182,18 @@ function handlePostback(senderPsid, receivedPostback) {
     case 'shopping':
       response = responseProductType
     case 'product-type':
-      response = responseProductType
+      const elementArray = getProducts('tshirt')
+      const responseProductList = {
+        attachment: {
+          type: 'template',
+          payload: {
+            template_type: 'list',
+            top_element_style: 'compact',
+            elements: elementArray
+          }
+        }
+      }
+      response = responseProductList
     case 'support':
       response = responseProductType
 
