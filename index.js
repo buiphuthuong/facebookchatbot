@@ -179,6 +179,7 @@ function handlePostback(senderPsid, receivedPostback) {
   // Set the response based on the postback payload
   switch (payload) {
     case 'shopping':
+      console.log(payload)
       response = responseProductType
     case 'quan-ao-nam':
       console.log('aaaa')
