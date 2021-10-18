@@ -60,4 +60,4 @@ const responseProductType = {
   }
 }
 
-module.exports = { responseCanMuaHang, responseProductType }
+module.exports = { responseFirstQuestion, responseProductType }

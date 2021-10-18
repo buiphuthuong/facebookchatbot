@@ -28,7 +28,7 @@ const request = require('request'),
   { urlencoded, json } = require('body-parser'),
   app = express()
 
-const { responseCanMuaHang, responseProductType } = require('./response')
+const { responseFirstQuestion, responseProductType } = require('./response')
 // Parse application/x-www-form-urlencoded
 app.use(urlencoded({ extended: true }))
 
@@ -106,7 +106,7 @@ function handleMessage(senderPsid, receivedMessage) {
   console.log('receivedMessage text', receivedMessage.text)
   if (receivedMessage.text) {
     console.log(receivedMessage)
-    response = responseCanMuaHang
+    response = responseFirstQuestion
   } else if (receivedMessage.attachments) {
     console.log('att', receivedMessage)
     // Get the URL of the message attachment
