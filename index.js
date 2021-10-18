@@ -182,18 +182,18 @@ function handlePostback(senderPsid, receivedPostback) {
       response = responseProductType
     case 'quan-ao-nam':
       console.log('aaaa')
-      const elementArray = getProducts('tshirt')
-      console.log(elementArray)
-      const responseProductList = {
-        attachment: {
-          type: 'template',
-          payload: {
-            template_type: 'list',
-            top_element_style: 'compact',
-            elements: elementArray
-          }
-        }
-      }
+      // const elementArray = getProducts('tshirt')
+      // console.log(elementArray)
+      // const responseProductList = {
+      //   attachment: {
+      //     type: 'template',
+      //     payload: {
+      //       template_type: 'list',
+      //       top_element_style: 'compact',
+      //       elements: elementArray
+      //     }
+      //   }
+      // }
       response = responseFirstQuestion
     case 'support':
       response = responseProductType
