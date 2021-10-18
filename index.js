@@ -171,9 +171,9 @@ function handleMessage(senderPsid, receivedMessage) {
         })
 
       default:
-        return (result =
-          'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop')
-        response = result
+        return (response = {
+          text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
+        })
     }
   } else if (receivedMessage.attachments) {
     console.log('att', receivedMessage)
