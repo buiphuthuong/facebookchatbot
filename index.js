@@ -195,7 +195,7 @@ function handlePostback(senderPsid, receivedPostback) {
       //     }
       //   }
       // }
-      response = responseFirstQuestion
+      response = { text: 'Thanks!' }
     case 'support':
       response = responseProductType
 
