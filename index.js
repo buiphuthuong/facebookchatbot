@@ -63,6 +63,64 @@ app.get('/webhook', (req, res) => {
   }
 })
 
+const response1 = {
+  attachment: {
+    type: 'template',
+    payload: {
+      template_type: 'generic',
+      elements: [
+        {
+          title: 'Chào bạn! Bạn cần mua hàng hay hỗ trợ ạ!',
+          subtitle: 'Nhấn nút để trả lời ạ!',
+          buttons: [
+            {
+              type: 'postback',
+              title: 'Cần mua hàng',
+              payload: 'can-mua-hang'
+            },
+            {
+              type: 'postback',
+              title: 'Hỗ trợ!',
+              payload: 'ho-tro'
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+
+const response2 = {
+  attachment: {
+    type: 'template',
+    payload: {
+      template_type: 'generic',
+      elements: [
+        {
+          title: 'Vui lòng chọn loại sản phẩm bạn muốn mua',
+          subtitle: 'Nhấn nút để trả lời ạ!',
+          buttons: [
+            {
+              type: 'postback',
+              title: 'Quần áo nam',
+              payload: 'quan-ao-nam'
+            },
+            {
+              type: 'postback',
+              title: 'Quần áo nữ',
+              payload: 'quan-ao-nu'
+            },
+            {
+              type: 'postback',
+              title: 'Giày Dép',
+              payload: 'giay-dep'
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
 // Creates the endpoint for your webhook
 app.post('/webhook', (req, res) => {
   let body = req.body
@@ -100,64 +158,6 @@ app.post('/webhook', (req, res) => {
 function handleMessage(senderPsid, receivedMessage) {
   let response
 
-  const response1 = {
-    attachment: {
-      type: 'template',
-      payload: {
-        template_type: 'generic',
-        elements: [
-          {
-            title: 'Chào bạn! Bạn cần mua hàng hay hỗ trợ ạ!',
-            subtitle: 'Nhấn nút để trả lời ạ!',
-            buttons: [
-              {
-                type: 'postback',
-                title: 'Cần mua hàng',
-                payload: 'can-mua-hang'
-              },
-              {
-                type: 'postback',
-                title: 'Hỗ trợ!',
-                payload: 'ho-tro'
-              }
-            ]
-          }
-        ]
-      }
-    }
-  }
-
-  const response2 = {
-    attachment: {
-      type: 'template',
-      payload: {
-        template_type: 'generic',
-        elements: [
-          {
-            title: 'Vui lòng chọn loại sản phẩm bạn muốn mua',
-            subtitle: 'Nhấn nút để trả lời ạ!',
-            buttons: [
-              {
-                type: 'postback',
-                title: 'Quần áo nam',
-                payload: 'quan-ao-nam'
-              },
-              {
-                type: 'postback',
-                title: 'Quần áo nữ',
-                payload: 'quan-ao-nu'
-              },
-              {
-                type: 'postback',
-                title: 'Giày Dép',
-                payload: 'giay-dep'
-              }
-            ]
-          }
-        ]
-      }
-    }
-  }
   // Checks if the message contains text
   console.log('receivedMessage aaa', receivedMessage)
   console.log('receivedMessage text', receivedMessage.text)
@@ -181,6 +181,13 @@ function handlePostback(senderPsid, receivedPostback) {
   let payload = receivedPostback.payload
   console.log('payload', payload)
   // Set the response based on the postback payload
+  switch (payload) {
+    case 'can-mua-hang':
+      response = response2
+
+    default:
+      break
+  }
   if (payload === 'yes') {
     response = { text: 'Thanks!' }
   } else if (payload === 'no') {
