@@ -38,20 +38,17 @@ const responseProductType = {
             {
               type: 'postback',
               title: 'Quần áo nam',
-              payload: 'quan-ao-nam',
-              value: 'quan-ao'
+              payload: 'quan-ao-nam'
             },
             {
               type: 'postback',
               title: 'Quần áo nữ',
-              payload: 'quan-ao-nu',
-              value: 'quan-ao'
+              payload: 'quan-ao-nu'
             },
             {
               type: 'postback',
               title: 'Giày Dép',
-              payload: 'giay-dep',
-              value: 'giay-dep'
+              payload: 'giay-dep'
             }
           ]
         }
