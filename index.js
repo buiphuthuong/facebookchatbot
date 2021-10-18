@@ -178,9 +178,10 @@ function handlePostback(senderPsid, receivedPostback) {
   console.log('payload', payload)
   // Set the response based on the postback payload
   switch (payload) {
-    case payload === 'shopping':
+    case 'shopping':
       response = responseProductType
-    case payload === 'quan-ao-nam':
+    case 'quan-ao-nam':
+      console.log('aaaa')
       const elementArray = getProducts('tshirt')
       console.log(elementArray)
       const responseProductList = {
@@ -194,7 +195,7 @@ function handlePostback(senderPsid, receivedPostback) {
         }
       }
       response = responseFirstQuestion
-    case payload === 'support':
+    case 'support':
       response = responseProductType
 
     default:
