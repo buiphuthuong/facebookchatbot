@@ -180,7 +180,19 @@ function handlePostback(senderPsid, receivedPostback) {
   if (payload === 'shopping') {
     response = responseProductType
   } else if (payload === 'quan-ao-nam') {
-    response = { text: 'Oops, try sending another image.' }
+    const elementArray = getProducts('tshirt')
+    // console.log(elementArray)
+    const responseProductList = {
+      attachment: {
+        type: 'template',
+        payload: {
+          template_type: 'list',
+          top_element_style: 'compact',
+          elements: elementArray
+        }
+      }
+    }
+    response = responseProductList
   }
   if (payload === 'yes') {
     response = { text: 'Thanks!' }
