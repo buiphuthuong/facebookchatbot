@@ -170,7 +170,7 @@ function handleMessage(senderPsid, receivedMessage) {
 }
 
 // Handles messaging_postbacks events
-function handlePostback(senderPsid, receivedPostback) {
+async function handlePostback(senderPsid, receivedPostback) {
   let response
 
   // Get the payload for the postback
@@ -180,7 +180,7 @@ function handlePostback(senderPsid, receivedPostback) {
   if (payload === 'shopping') {
     response = responseProductType
   } else if (payload === 'quan-ao-nam') {
-    const elementArray = getProducts('tshirt')
+    const elementArray = await getProducts('tshirt')
     console.log('elementArray', elementArray)
     const responseProductList = {
       attachment: {
