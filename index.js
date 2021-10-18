@@ -180,7 +180,7 @@ async function handlePostback(senderPsid, receivedPostback) {
   if (payload === 'shopping') {
     response = responseProductType
   } else if (payload === 'quan-ao-nam') {
-    const elementArray = await getProducts('tshirt')
+    //  const elementArray = await getProducts('tshirt')
     // console.log('elementArray', elementArray)
     const responseProductList = {
       attachment: {
