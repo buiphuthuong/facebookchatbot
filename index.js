@@ -162,9 +162,7 @@ function handleMessage(senderPsid, receivedMessage) {
 
     switch (typeMessage) {
       case XIN_CHAO:
-        response = {
-          text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
-        }
+        response = responseFirstQuestion
         break
       case KET_THUC:
         response = {
@@ -173,23 +171,10 @@ function handleMessage(senderPsid, receivedMessage) {
         break
       default:
         response = {
-          text: 'Rat tiec minh khong hieu van de ban dang noi, vui long lien he truc tiep voi nhan vien cua shop'
+          text: 'Rất tiếc mình không hiểu vấn đề bạn đang nói, vui lòng liên hệ trực tiếp với nhân viên của shop Hotline : 0123456789'
         }
         break
     }
-    // if (typeMessage === 'XIN_CHAO') {
-    //   response = {
-    //     text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
-    //   }
-    // } else if (typeMessage === 'KET_THUC') {
-    //   response = {
-    //     text: 'Rất vui được hỗ trợ cho bạn, Cảm ơn bạn đã quan tâm đến shop. Chúc bạn một ngày tốt lành, hẹn sớm gặp lại!'
-    //   }
-    // } else {
-    //   response = {
-    //     text: 'Rat tiec minh khong hieu van de ban dang noi, vui long lien he truc tiep voi nhan vien cua shop'
-    //   }
-    // }
   } else if (receivedMessage.attachments) {
     console.log('att', receivedMessage)
     // Get the URL of the message attachment
