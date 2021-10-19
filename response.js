@@ -32,7 +32,7 @@ const responseClipSKU = {
       elements: [
         {
           media_type: 'video',
-          url: 'http://techslides.com/demos/sample-videos/small.mp4'
+          url: 'https://business.facebook.com/camauf/videos/207417294764413'
         }
       ]
     }
