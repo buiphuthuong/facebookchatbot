@@ -42,7 +42,13 @@ const responseSKU = {
             url: 'https://petersfancybrownhats.com',
             webview_height_ratio: 'tall'
           },
-          buttons: []
+          buttons: [
+            {
+              type: 'web_url',
+              url: 'https://petersfancybrownhats.com',
+              title: 'Xem hướng dẫn'
+            }
+          ]
         }
       ]
     }
