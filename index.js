@@ -157,23 +157,19 @@ function handleMessage(senderPsid, receivedMessage) {
     } else if (message.includes('bye') || message.includes('tam biet')) {
       typeMessage = 'KET_THUC'
     }
-    console.log(typeMessage)
-    let result = ''
-    switch (typeMessage) {
-      case 'XIN_CHAO':
-        response = {
-          text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
-        }
 
-      case 'KET_THUC':
-        response = {
-          text: 'Rất vui được hỗ trợ cho bạn, Cảm ơn bạn đã quan tâm đến shop. Chúc bạn một ngày tốt lành, hẹn sớm gặp lại!'
-        }
-
-      default:
-        response = {
-          text: 'Rat tiec minh khong hieu van de ban dang noi, vui long lien he truc tiep voi nhan vien cua shop'
-        }
+    if (typeMessage === 'XIN_CHAO') {
+      response = {
+        text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
+      }
+    } else if (typeMessage === 'XIN_CHAO') {
+      response = {
+        text: 'Rất vui được hỗ trợ cho bạn, Cảm ơn bạn đã quan tâm đến shop. Chúc bạn một ngày tốt lành, hẹn sớm gặp lại!'
+      }
+    } else {
+      response = {
+        text: 'Rat tiec minh khong hieu van de ban dang noi, vui long lien he truc tiep voi nhan vien cua shop'
+      }
     }
   } else if (receivedMessage.attachments) {
     console.log('att', receivedMessage)
