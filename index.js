@@ -151,6 +151,7 @@ function handleMessage(senderPsid, receivedMessage) {
   if (receivedMessage.text) {
     const message = receivedMessage.text.toLowerCase()
     typeMessage = proccessMessage(message)
+    console.log(typeMessage)
     switch (typeMessage) {
       case XIN_CHAO:
         response = responseFirstQuestion
