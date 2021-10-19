@@ -33,6 +33,7 @@ const {
   responseProductType,
   responseFeedBack
 } = require('./response')
+const { XIN_CHAO, KET_THUC } = require('./contanst')
 // Parse application/x-www-form-urlencoded
 app.use(urlencoded({ extended: true }))
 
@@ -147,7 +148,7 @@ function handleMessage(senderPsid, receivedMessage) {
   // Checks if the message contains text
   let typeMessage = ''
   if (receivedMessage.text) {
-    const message = receivedMessage.text
+    const message = receivedMessage.text.toLowerCase()
     if (
       message.includes('hi') ||
       message.includes('hello') ||
@@ -158,19 +159,37 @@ function handleMessage(senderPsid, receivedMessage) {
       typeMessage = 'KET_THUC'
     }
     console.log(typeMessage)
-    if (typeMessage === 'XIN_CHAO') {
-      response = {
-        text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
-      }
-    } else if (typeMessage === 'KET_THUC') {
-      response = {
-        text: 'Rất vui được hỗ trợ cho bạn, Cảm ơn bạn đã quan tâm đến shop. Chúc bạn một ngày tốt lành, hẹn sớm gặp lại!'
-      }
-    } else {
-      response = {
-        text: 'Rat tiec minh khong hieu van de ban dang noi, vui long lien he truc tiep voi nhan vien cua shop'
-      }
+
+    switch (typeMessage) {
+      case XIN_CHAO:
+        response = {
+          text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
+        }
+        break
+      case KET_THUC:
+        response = {
+          text: 'Rất vui được hỗ trợ cho bạn, Cảm ơn bạn đã quan tâm đến shop. Chúc bạn một ngày tốt lành, hẹn sớm gặp lại!'
+        }
+        break
+      default:
+        response = {
+          text: 'Rat tiec minh khong hieu van de ban dang noi, vui long lien he truc tiep voi nhan vien cua shop'
+        }
+        break
     }
+    // if (typeMessage === 'XIN_CHAO') {
+    //   response = {
+    //     text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
+    //   }
+    // } else if (typeMessage === 'KET_THUC') {
+    //   response = {
+    //     text: 'Rất vui được hỗ trợ cho bạn, Cảm ơn bạn đã quan tâm đến shop. Chúc bạn một ngày tốt lành, hẹn sớm gặp lại!'
+    //   }
+    // } else {
+    //   response = {
+    //     text: 'Rat tiec minh khong hieu van de ban dang noi, vui long lien he truc tiep voi nhan vien cua shop'
+    //   }
+    // }
   } else if (receivedMessage.attachments) {
     console.log('att', receivedMessage)
     // Get the URL of the message attachment
