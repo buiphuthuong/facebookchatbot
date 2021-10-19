@@ -35,7 +35,7 @@ const {
 } = require('./response')
 const { XIN_CHAO, KET_THUC, LAY_SDT } = require('./contanst')
 const stringSimilarity = require('string-similarity')
-
+const proccessMessage = require('./proccessMessage')
 // Parse application/x-www-form-urlencoded
 app.use(urlencoded({ extended: true }))
 
@@ -151,30 +151,7 @@ function handleMessage(senderPsid, receivedMessage) {
   let typeMessage = ''
   if (receivedMessage.text) {
     const message = receivedMessage.text.toLowerCase()
-    if (
-      message.includes('hi') ||
-      message.includes('hello') ||
-      message.includes('chao shop')
-    ) {
-      typeMessage = 'XIN_CHAO'
-    } else if (message.includes('bye') || message.includes('tam biet')) {
-      typeMessage = 'KET_THUC'
-    } else if (
-      message.includes('sdt') ||
-      message.includes('số điện thoại') ||
-      message.includes('so dien thoai')
-    ) {
-      const similarity = stringSimilarity.compareTwoStrings(
-        'cho tôi xin số điện thoại của shop',
-        message
-      )
-      console.log(similarity)
-      if (similarity > 0.65) {
-        typeMessage = 'LAY_SDT'
-      }
-    }
-    console.log(typeMessage)
-
+    typeMessage = proccessMessage(message)
     switch (typeMessage) {
       case XIN_CHAO:
         response = responseFirstQuestion
