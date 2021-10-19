@@ -161,19 +161,19 @@ function handleMessage(senderPsid, receivedMessage) {
     let result = ''
     switch (typeMessage) {
       case 'XIN_CHAO':
-        return (response = {
+        response = {
           text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
-        })
+        }
 
       case 'KET_THUC':
-        return (response = {
+        response = {
           text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
-        })
+        }
 
       default:
-        return (response = {
+        response = {
           text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
-        })
+        }
     }
   } else if (receivedMessage.attachments) {
     console.log('att', receivedMessage)
