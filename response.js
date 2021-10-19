@@ -41,7 +41,19 @@ const responseSKU = {
             type: 'web_url',
             url: '#',
             webview_height_ratio: 'tall'
-          }
+          },
+          buttons: [
+            {
+              type: 'web_url',
+              url: 'https://petersfancybrownhats.com',
+              title: 'View Website'
+            },
+            {
+              type: 'postback',
+              title: 'Start Chatting',
+              payload: 'DEVELOPER_DEFINED_PAYLOAD'
+            }
+          ]
         }
       ]
     }
