@@ -25,6 +25,28 @@ const responseFirstQuestion = {
   }
 }
 
+const responseSKU = {
+  attachment: {
+    type: 'template',
+    payload: {
+      template_type: 'generic',
+      elements: [
+        {
+          title: 'Hi Bạn!',
+          image_url:
+            'https://vieclam.thegioididong.com/uploads/img/news/241/sku1.png',
+          subtitle:
+            'Bạn vui lòng cung cấp SKU có trên thông tin sản phẩm theo cú pháp SKU:XXXXXX',
+          default_action: {
+            type: 'web_url',
+            url: '#',
+            webview_height_ratio: 'tall'
+          }
+        }
+      ]
+    }
+  }
+}
 const responseProductType = {
   attachment: {
     type: 'template',
@@ -96,5 +118,6 @@ const responseFeedBack = {
 module.exports = {
   responseFirstQuestion,
   responseProductType,
-  responseFeedBack
+  responseFeedBack,
+  responseSKU
 }

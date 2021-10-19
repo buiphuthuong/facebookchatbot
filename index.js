@@ -31,7 +31,8 @@ const request = require('request'),
 const {
   responseFirstQuestion,
   responseProductType,
-  responseFeedBack
+  responseFeedBack,
+  responseSKU
 } = require('./response')
 const { XIN_CHAO, KET_THUC, LAY_SDT, ASK_SKU } = require('./contanst')
 const proccessMessage = require('./proccessMessage')
@@ -167,9 +168,8 @@ function handleMessage(senderPsid, receivedMessage) {
         }
         break
       case ASK_SKU:
-        response = {
-          text: 'Bạn vui lòng cung cấp SKU có trên thông tin sản phẩm'
-        }
+        response = responseSKU
+
         break
       default:
         response = {
