@@ -39,7 +39,7 @@ const responseSKU = {
             'Bạn vui lòng cung cấp SKU có trên thông tin sản phẩm theo cú pháp SKU:XXXXXX',
           default_action: {
             type: 'web_url',
-            url: '#',
+            url: 'https://petersfancybrownhats.com',
             webview_height_ratio: 'tall'
           },
           buttons: [
@@ -47,11 +47,6 @@ const responseSKU = {
               type: 'web_url',
               url: 'https://petersfancybrownhats.com',
               title: 'View Website'
-            },
-            {
-              type: 'postback',
-              title: 'Start Chatting',
-              payload: 'DEVELOPER_DEFINED_PAYLOAD'
             }
           ]
         }
