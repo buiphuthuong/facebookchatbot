@@ -24,7 +24,20 @@ const responseFirstQuestion = {
     }
   }
 }
-
+const responseClipSKU = {
+  attachment: {
+    type: 'template',
+    payload: {
+      template_type: 'media',
+      elements: [
+        {
+          media_type: 'video',
+          url: 'http://techslides.com/demos/sample-videos/small.mp4'
+        }
+      ]
+    }
+  }
+}
 const responseSKU = {
   attachment: {
     type: 'template',
@@ -44,9 +57,10 @@ const responseSKU = {
           },
           buttons: [
             {
-              type: 'web_url',
+              type: 'postback',
               url: 'https://petersfancybrownhats.com',
-              title: 'Xem hướng dẫn'
+              title: 'Xem clip hướng dẫn',
+              payload: 'clip-huong-dan'
             }
           ]
         }
@@ -126,5 +140,6 @@ module.exports = {
   responseFirstQuestion,
   responseProductType,
   responseFeedBack,
-  responseSKU
+  responseSKU,
+  responseClipSKU
 }

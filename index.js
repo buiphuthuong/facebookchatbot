@@ -32,7 +32,8 @@ const {
   responseFirstQuestion,
   responseProductType,
   responseFeedBack,
-  responseSKU
+  responseSKU,
+  responseClipSKU
 } = require('./response')
 const { XIN_CHAO, KET_THUC, LAY_SDT, ASK_SKU } = require('./contanst')
 const proccessMessage = require('./proccessMessage')
@@ -212,7 +213,10 @@ async function handlePostback(senderPsid, receivedPostback) {
     response = responseProductList
   } else if (payload === 'support') {
     response = responseFeedBack
+  } else if (payload === 'clip-huong-dan') {
+    response = responseClipSKU
   }
+
   if (payload === 'yes') {
     response = { text: 'Thanks!' }
   } else if (payload === 'no') {
