@@ -157,7 +157,7 @@ function handleMessage(senderPsid, receivedMessage) {
     } else if (message.includes('bye') || message.includes('tam biet')) {
       typeMessage = 'KET_THUC'
     }
-
+    console.log(typeMessage)
     if (typeMessage === 'XIN_CHAO') {
       response = {
         text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
