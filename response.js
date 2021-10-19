@@ -58,7 +58,6 @@ const responseSKU = {
           buttons: [
             {
               type: 'postback',
-              url: 'https://petersfancybrownhats.com',
               title: 'Xem clip hướng dẫn',
               payload: 'clip-huong-dan'
             }
