@@ -34,7 +34,6 @@ const {
   responseFeedBack
 } = require('./response')
 const { XIN_CHAO, KET_THUC, LAY_SDT } = require('./contanst')
-const stringSimilarity = require('string-similarity')
 const proccessMessage = require('./proccessMessage')
 // Parse application/x-www-form-urlencoded
 app.use(urlencoded({ extended: true }))

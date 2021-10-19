@@ -1,3 +1,4 @@
+const stringSimilarity = require('string-similarity')
 const proccessMessage = (message) => {
   if (
     message.includes('hi') ||
