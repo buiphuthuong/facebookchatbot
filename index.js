@@ -173,7 +173,7 @@ function handleMessage(senderPsid, receivedMessage) {
         typeMessage = 'LAY_SDT'
       }
     }
-    // console.log(typeMessage)
+    console.log(typeMessage)
 
     switch (typeMessage) {
       case XIN_CHAO:
