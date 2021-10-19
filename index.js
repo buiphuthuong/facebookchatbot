@@ -200,6 +200,7 @@ function handleMessage(senderPsid, receivedMessage) {
     // Get the URL of the message attachment
   }
 
+  console.log(response)
   // Send the response message
   callSendAPI(senderPsid, response)
 }
