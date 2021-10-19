@@ -33,7 +33,9 @@ const {
   responseProductType,
   responseFeedBack
 } = require('./response')
-const { XIN_CHAO, KET_THUC } = require('./contanst')
+const { XIN_CHAO, KET_THUC, LAY_SDT } = require('./contanst')
+const stringSimilarity = require('string-similarity')
+
 // Parse application/x-www-form-urlencoded
 app.use(urlencoded({ extended: true }))
 
@@ -157,8 +159,20 @@ function handleMessage(senderPsid, receivedMessage) {
       typeMessage = 'XIN_CHAO'
     } else if (message.includes('bye') || message.includes('tam biet')) {
       typeMessage = 'KET_THUC'
+    } else if (
+      message.includes('sdt') ||
+      message.includes('số điện thoại') ||
+      message.includes('so dien thoai')
+    ) {
+      const similarity = stringSimilarity.compareTwoStrings(
+        'cho tôi xin số điện thoại của shop',
+        message
+      )
+      if (similarity > 0.65) {
+        typeMessage = 'LAY_SDT'
+      }
     }
-    console.log(typeMessage)
+    // console.log(typeMessage)
 
     switch (typeMessage) {
       case XIN_CHAO:
@@ -169,6 +183,10 @@ function handleMessage(senderPsid, receivedMessage) {
           text: 'Rất vui được hỗ trợ cho bạn, Cảm ơn bạn đã quan tâm đến shop. Chúc bạn một ngày tốt lành, hẹn sớm gặp lại!'
         }
         break
+      case LAY_SDT:
+        response = {
+          text: 'Đây là số điện thoại và địa chỉ của Shop: 0944191101 - 1002 Tạ Quang Bữu, P6, Quận 8, HCM'
+        }
       default:
         response = {
           text: 'Rất tiếc mình không hiểu vấn đề bạn đang nói, vui lòng liên hệ trực tiếp với nhân viên của shop Hotline : 0123456789'
