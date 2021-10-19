@@ -159,21 +159,15 @@ function handleMessage(senderPsid, receivedMessage) {
     }
     console.log(typeMessage)
     let result = ''
-    switch (typeMessage) {
-      case 'XIN_CHAO':
-        response = {
-          text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
-        }
 
-      case 'KET_THUC':
-        response = {
-          text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
-        }
-
-      default:
-        response = {
-          text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
-        }
+    if (typeMessage === 'XIN_CHAO') {
+      response = {
+        text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
+      }
+    } else if (typeMessage === 'KET_THUC') {
+      response = {
+        text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
+      }
     }
   } else if (receivedMessage.attachments) {
     console.log('att', receivedMessage)
