@@ -168,6 +168,7 @@ function handleMessage(senderPsid, receivedMessage) {
         'cho tôi xin số điện thoại của shop',
         message
       )
+      console.log(similarity)
       if (similarity > 0.65) {
         typeMessage = 'LAY_SDT'
       }
