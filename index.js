@@ -188,6 +188,7 @@ function handleMessage(senderPsid, receivedMessage) {
         response = {
           text: 'Đây là số điện thoại và địa chỉ của Shop: 0944191101 - 1002 Tạ Quang Bữu, P6, Quận 8, HCM'
         }
+        break
       default:
         response = {
           text: 'Rất tiếc mình không hiểu vấn đề bạn đang nói, vui lòng liên hệ trực tiếp với nhân viên của shop Hotline : 0123456789'
