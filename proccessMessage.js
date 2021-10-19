@@ -3,7 +3,7 @@ const stringSimilarity = require('string-similarity')
 //cái áo Nike tshirt 4 còn không shop
 const proccessMessage = (message) => {
   if (
-    message.includes('hi') ||
+    (message.includes('hi') && message.length <= 3) ||
     message.includes('hello') ||
     message.includes('chao shop')
   ) {
@@ -11,6 +11,7 @@ const proccessMessage = (message) => {
   } else if (message.includes('bye') || message.includes('tam biet')) {
     typeMessage = 'KET_THUC'
   } else if (
+    message.includes('có không') ||
     message.includes('còn không') ||
     message.includes('có hàng') ||
     message.includes('này không')
