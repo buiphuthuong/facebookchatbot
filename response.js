@@ -42,13 +42,7 @@ const responseSKU = {
             url: 'https://petersfancybrownhats.com',
             webview_height_ratio: 'tall'
           },
-          buttons: [
-            {
-              type: 'web_url',
-              url: 'https://petersfancybrownhats.com',
-              title: 'View Website'
-            }
-          ]
+          buttons: []
         }
       ]
     }
