@@ -162,7 +162,7 @@ function handleMessage(senderPsid, receivedMessage) {
       response = {
         text: 'Chào bạn! Mình là Chat Bot của shop. Mình sẽ hỗ trợ cho bạn những thông tin cơ bản của shop'
       }
-    } else if (typeMessage === 'XIN_CHAO') {
+    } else if (typeMessage === 'KET_THUC') {
       response = {
         text: 'Rất vui được hỗ trợ cho bạn, Cảm ơn bạn đã quan tâm đến shop. Chúc bạn một ngày tốt lành, hẹn sớm gặp lại!'
       }
