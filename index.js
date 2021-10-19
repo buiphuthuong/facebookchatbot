@@ -33,7 +33,7 @@ const {
   responseProductType,
   responseFeedBack
 } = require('./response')
-const { XIN_CHAO, KET_THUC, LAY_SDT } = require('./contanst')
+const { XIN_CHAO, KET_THUC, LAY_SDT, ASK_SKU } = require('./contanst')
 const proccessMessage = require('./proccessMessage')
 // Parse application/x-www-form-urlencoded
 app.use(urlencoded({ extended: true }))
@@ -163,6 +163,11 @@ function handleMessage(senderPsid, receivedMessage) {
       case LAY_SDT:
         response = {
           text: 'Đây là số điện thoại và địa chỉ của Shop: 0944191101 - 1002 Tạ Quang Bữu, P6, Quận 8, HCM'
+        }
+        break
+      case ASK_SKU:
+        response = {
+          text: 'Bạn vui lòng cung cấp SKU có trên thông tin sản phẩm'
         }
         break
       default:
