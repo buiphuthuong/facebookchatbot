@@ -96,7 +96,7 @@ const findProductBySKU = async (sku) => {
         : 'https://cmscart-server.herokuapp.com/api/products'
     )
 
-    return res.data.inStock
+    return res.data.inStock ? true : false
   } catch (error) {
     console.log(error)
   }
