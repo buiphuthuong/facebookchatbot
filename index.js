@@ -95,8 +95,8 @@ const findProductBySKU = async (sku) => {
         ? `https://cmscart-server.herokuapp.com/api/products/sku/${sku}`
         : 'https://cmscart-server.herokuapp.com/api/products'
     )
-    console.log(res)
-    if (res.data !== null) {
+    console.log(res.data)
+    if (res.data.length > 0) {
       return res.data.inStock === true ? true : false
     } else {
       return false
@@ -181,6 +181,7 @@ function handleMessage(senderPsid, receivedMessage) {
       const sku = message.split(':')[1]
       console.log(sku)
       const findSKU = findProductBySKU(sku)
+      console.log('findSKU', findSKU)
       if (findSKU) {
         typeMessage = 'CON_HANG'
       } else {
