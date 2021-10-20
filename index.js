@@ -35,7 +35,14 @@ const {
   responseSKU,
   responseClipSKU
 } = require('./response')
-const { XIN_CHAO, KET_THUC, LAY_SDT, ASK_SKU } = require('./contanst')
+const {
+  XIN_CHAO,
+  KET_THUC,
+  LAY_SDT,
+  ASK_SKU,
+  HET_HANG,
+  CON_HANG
+} = require('./contanst')
 const proccessMessage = require('./proccessMessage')
 // Parse application/x-www-form-urlencoded
 app.use(urlencoded({ extended: true }))
@@ -77,6 +84,19 @@ const getProducts = async (cat) => {
       elementArray.push(elementObj)
     })
     return elementArray
+  } catch (error) {
+    console.log(error)
+  }
+}
+const findProductBySKU = async (sku) => {
+  try {
+    const res = await axios.get(
+      sku
+        ? `https://cmscart-server.herokuapp.com/api/products/sku/${sku}`
+        : 'https://cmscart-server.herokuapp.com/api/products'
+    )
+
+    return res.data.inStock
   } catch (error) {
     console.log(error)
   }
@@ -152,7 +172,19 @@ function handleMessage(senderPsid, receivedMessage) {
   let typeMessage = ''
   if (receivedMessage.text) {
     const message = receivedMessage.text.toLowerCase()
-    typeMessage = proccessMessage(message)
+
+    if (message.includes('SKU:')) {
+      const sku = string.split(':')[1]
+      const findSKU = findProductBySKU(sku)
+      if (findSKU) {
+        typeMessage = 'CON_HANG'
+      } else {
+        typeMessage = 'HET_HANG'
+      }
+    } else {
+      typeMessage = proccessMessage(message)
+    }
+
     console.log(typeMessage)
     switch (typeMessage) {
       case XIN_CHAO:
@@ -166,6 +198,16 @@ function handleMessage(senderPsid, receivedMessage) {
       case LAY_SDT:
         response = {
           text: 'Đây là số điện thoại và địa chỉ của Shop: 0944191101 - 1002 Tạ Quang Bữu, P6, Quận 8, HCM'
+        }
+        break
+      case CON_HANG:
+        response = {
+          text: 'Dạ, Sản phẩm này vẫn còn ạ!'
+        }
+        break
+      case HET_HANG:
+        response = {
+          text: 'Dạ, Sản phẩm này hết ạ!'
         }
         break
       case ASK_SKU:
