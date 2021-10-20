@@ -173,7 +173,7 @@ function handleMessage(senderPsid, receivedMessage) {
   if (receivedMessage.text) {
     const message = receivedMessage.text.toLowerCase()
     console.log(message)
-    if (message.includes('SKU:')) {
+    if (message.includes('sku:')) {
       const sku = string.split(':')[1]
       console.log(sku)
       const findSKU = findProductBySKU(sku)
