@@ -1,7 +1,15 @@
 const stringSimilarity = require('string-similarity')
 
 //cái áo Nike tshirt 4 còn không shop
+//cho xem mẫu áo thun nam
+//gửi mình xem mẫu áo thun nam
+//bạn/anh/chị/shop có áo thun nam không
+//cách thanh toán/ thanh toán như thế nào shop
+//bên shop có thu hộ không / có cod không
+//có cho kiểm tra hàng không shop / kiểm hàng được không shop / xem hàng trước được không shop
+
 const proccessMessage = (message) => {
+  let typeMessage = ''
   if (
     (message.includes('hi') && message.length <= 3) ||
     message.includes('hello') ||
