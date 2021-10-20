@@ -175,6 +175,7 @@ function handleMessage(senderPsid, receivedMessage) {
 
     if (message.includes('SKU:')) {
       const sku = string.split(':')[1]
+      console.log(sku)
       const findSKU = findProductBySKU(sku)
       if (findSKU) {
         typeMessage = 'CON_HANG'
