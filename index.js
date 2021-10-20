@@ -95,7 +95,7 @@ const findProductBySKU = async (sku) => {
         ? `https://cmscart-server.herokuapp.com/api/products/sku/${sku}`
         : 'https://cmscart-server.herokuapp.com/api/products'
     )
-    console.log('length1w', res.data.length)
+    console.log('length1w3', res.data.length)
     if (res.data.length > 0) {
       return res.data[0].inStock === true ? true : false
     } else {
