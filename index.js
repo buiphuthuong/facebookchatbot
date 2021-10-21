@@ -99,6 +99,7 @@ const findProductBySKU = async (sku) => {
     if (res.data.length > 0) {
       return res.data[0].inStock === true ? true : false
     } else {
+      console.log('length1wsadasdas', res.data.length)
       return false
     }
   } catch (error) {
@@ -169,7 +170,7 @@ app.post('/webhook', (req, res) => {
 })
 
 // Handles messages events
-function handleMessage(senderPsid, receivedMessage) {
+async function handleMessage(senderPsid, receivedMessage) {
   let response
 
   // Checks if the message contains text
@@ -180,7 +181,7 @@ function handleMessage(senderPsid, receivedMessage) {
     if (message.includes('sku')) {
       const sku = message.split(':')[1]
       console.log(sku)
-      const findSKU = findProductBySKU(sku)
+      const findSKU = await findProductBySKU(sku)
       console.log('findSKU', findSKU)
       if (findSKU) {
         typeMessage = 'CON_HANG'
