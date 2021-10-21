@@ -13,6 +13,7 @@ const proccessMessage = (message) => {
   if (
     (message.includes('hi') && message.length <= 3) ||
     message.includes('hello') ||
+    message.includes('hi shop') ||
     message.includes('chao shop')
   ) {
     typeMessage = 'XIN_CHAO'

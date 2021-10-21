@@ -95,11 +95,9 @@ const findProductBySKU = async (sku) => {
         ? `https://cmscart-server.herokuapp.com/api/products/sku/${sku}`
         : 'https://cmscart-server.herokuapp.com/api/products'
     )
-    console.log('length1w3', res.data.length)
     if (res.data.length > 0) {
       return res.data[0].inStock === true ? true : false
     } else {
-      console.log('length1wsadasdas', res.data.length)
       return false
     }
   } catch (error) {
@@ -180,9 +178,7 @@ async function handleMessage(senderPsid, receivedMessage) {
 
     if (message.includes('sku')) {
       const sku = message.split(':')[1]
-      console.log(sku)
       const findSKU = await findProductBySKU(sku)
-      console.log('findSKU', findSKU)
       if (findSKU) {
         typeMessage = 'CON_HANG'
       } else {
@@ -201,6 +197,9 @@ async function handleMessage(senderPsid, receivedMessage) {
         response = {
           text: 'Rất vui được hỗ trợ cho bạn, Cảm ơn bạn đã quan tâm đến shop. Chúc bạn một ngày tốt lành, hẹn sớm gặp lại!'
         }
+        break
+      case CHECK_PRODUCT:
+        response = responseSKU
         break
       case LAY_SDT:
         response = {

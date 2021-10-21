@@ -15,6 +15,11 @@ const responseFirstQuestion = {
             },
             {
               type: 'postback',
+              title: 'Kiểm tra sản phẩm còn hay hết',
+              payload: 'check-product'
+            },
+            {
+              type: 'postback',
               title: 'Hỗ trợ!',
               payload: 'support'
             }
