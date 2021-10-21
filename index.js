@@ -193,7 +193,7 @@ async function handleMessage(senderPsid, receivedMessage) {
     console.log('typeMessage', typeMessage)
     switch (typeMessage) {
       case XIN_CHAO:
-        response = responseQuickreply
+        response = responseFirstQuestion
         break
       case KET_THUC:
         response = {
