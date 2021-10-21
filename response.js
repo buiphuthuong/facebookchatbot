@@ -15,7 +15,7 @@ const responseFirstQuestion = {
             },
             {
               type: 'postback',
-              title: 'Kiểm tra sản phẩm còn hay hết',
+              title: 'Tìm sản phẩm',
               payload: 'check-product'
             },
             {

@@ -41,7 +41,8 @@ const {
   LAY_SDT,
   ASK_SKU,
   HET_HANG,
-  CON_HANG
+  CON_HANG,
+  CHECK_PRODUCT
 } = require('./contanst')
 const proccessMessage = require('./proccessMessage')
 // Parse application/x-www-form-urlencoded
