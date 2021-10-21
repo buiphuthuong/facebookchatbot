@@ -263,6 +263,8 @@ async function handlePostback(senderPsid, receivedPostback) {
     response = responseFeedBack
   } else if (payload === 'clip-huong-dan') {
     response = responseClipSKU
+  } else if (payload === 'check-product') {
+    response = responseSKU
   }
 
   if (payload === 'yes') {
