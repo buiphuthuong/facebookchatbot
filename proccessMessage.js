@@ -38,6 +38,12 @@ const proccessMessage = (message) => {
     if (similarity > 0.65) {
       typeMessage = 'LAY_SDT'
     }
+  } else if (
+    message.includes('địa chỉ của') ||
+    message.includes('địa chỉ shop') ||
+    message.includes('xin địa chỉ')
+  ) {
+    typeMessage = 'LAY_SDT'
   }
   // console.log(typeMessage)
   return typeMessage
