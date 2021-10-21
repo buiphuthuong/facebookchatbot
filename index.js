@@ -33,7 +33,8 @@ const {
   responseProductType,
   responseFeedBack,
   responseSKU,
-  responseClipSKU
+  responseClipSKU,
+  responseQuickreply
 } = require('./response')
 const {
   XIN_CHAO,
@@ -192,7 +193,7 @@ async function handleMessage(senderPsid, receivedMessage) {
     console.log('typeMessage', typeMessage)
     switch (typeMessage) {
       case XIN_CHAO:
-        response = responseFirstQuestion
+        response = responseQuickreply
         break
       case KET_THUC:
         response = {
