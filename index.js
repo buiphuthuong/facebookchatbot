@@ -209,7 +209,36 @@ async function handleMessage(senderPsid, receivedMessage) {
         break
       case CON_HANG:
         response = {
-          text: 'Dạ, Sản phẩm này vẫn còn ạ!'
+          attachment: {
+            type: 'template',
+            payload: {
+              template_type: 'generic',
+              elements: [
+                {
+                  title: 'Dạ, Sản phẩm này vẫn còn ạ!',
+                  subtitle:
+                    'Bạn có muốn mua sản phẩm này không ạ! Nhấn nút để trả lời ạ!',
+                  buttons: [
+                    {
+                      type: 'postback',
+                      title: 'Đồng ý mua',
+                      payload: 'dong-y-mua'
+                    },
+                    {
+                      type: 'postback',
+                      title: 'Tìm sản phẩm khác',
+                      payload: 'check-product'
+                    },
+                    {
+                      type: 'postback',
+                      title: 'Hỗ trợ!',
+                      payload: 'support'
+                    }
+                  ]
+                }
+              ]
+            }
+          }
         }
         break
       case HET_HANG:
@@ -266,6 +295,10 @@ async function handlePostback(senderPsid, receivedPostback) {
     response = responseClipSKU
   } else if (payload === 'check-product') {
     response = responseSKU
+  } else if (payload === 'dong-y-mua') {
+    response = {
+      text: 'Dạ vui lòng cho shop xin họ tên, địa chỉ và số điện thoại ạ! Shop sẽ kiểm tra thông tin và gửi sản phẩm cho bạn sớm nhất ạ!'
+    }
   }
 
   if (payload === 'yes') {

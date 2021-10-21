@@ -41,7 +41,8 @@ const proccessMessage = (message) => {
   } else if (
     message.includes('địa chỉ của') ||
     message.includes('địa chỉ shop') ||
-    message.includes('xin địa chỉ')
+    message.includes('xin địa chỉ') ||
+    message.includes('xin dia chi')
   ) {
     typeMessage = 'LAY_SDT'
   }
