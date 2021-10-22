@@ -178,7 +178,7 @@ async function handleMessage(senderPsid, receivedMessage, recipientId) {
   if (getdata === 'dong-y-mua') {
     console.log('getdata', getdata)
   }
-  console.log('getdata', getdata.text)
+  console.log('getdata', getdata)
   console.log('receivedMessage2', receivedMessage)
   console.log('senderPsid', senderPsid)
   let response
