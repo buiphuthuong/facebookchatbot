@@ -143,6 +143,7 @@ const handleMessageProccess = async (
     console.log('att', receivedMessage)
     // Get the URL of the message attachment
   }
+  return response
 }
 
 module.exports = handleMessageProccess
