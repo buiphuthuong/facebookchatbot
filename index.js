@@ -149,16 +149,17 @@ app.post('/webhook', (req, res) => {
     body.entry.forEach(function (entry) {
       // Gets the body of the webhook event
       let webhookEvent = entry.messaging[0]
-      console.log(webhookEvent)
 
       // Get the sender PSID
       let senderPsid = webhookEvent.sender.id
-      console.log('Sender PSID: ' + senderPsid)
-
+      // console.log('Sender PSID: ' + senderPsid)
+      let recipientId = webhookEvent.recipient.id
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhookEvent.message) {
-        handleMessage(senderPsid, webhookEvent.message)
+        store.put(webhookEvent.recipient.id, webhookEvent.message)
+
+        handleMessage(senderPsid, webhookEvent.message, recipientId)
       } else if (webhookEvent.postback) {
         handlePostback(senderPsid, webhookEvent.postback)
       }
@@ -173,9 +174,9 @@ app.post('/webhook', (req, res) => {
 })
 
 // Handles messages events
-async function handleMessage(senderPsid, receivedMessage) {
+async function handleMessage(senderPsid, receivedMessage, recipientId) {
   //store.put('hello', 'world')
-  const getdata = store.get('hello')
+  const getdata = store.get(recipientId)
   console.log(getdata)
   console.log('receivedMessage2', receivedMessage)
   console.log('senderPsid', senderPsid)
