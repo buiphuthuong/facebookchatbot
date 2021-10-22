@@ -102,7 +102,7 @@ app.post('/webhook', (req, res) => {
 async function handleMessage(senderPsid, receivedMessage, recipientId) {
   // Checks if the message contains text
 
-  const response = handleMessageProccess(
+  const response = await handleMessageProccess(
     senderPsid,
     receivedMessage,
     recipientId
@@ -116,7 +116,7 @@ async function handleMessage(senderPsid, receivedMessage, recipientId) {
 async function handlePostback(senderPsid, receivedPostback, recipientId) {
   // Get the payload for the postback
   let payload = receivedPostback.payload
-  const response = handlePostbackProccess(payload)
+  const response = await handlePostbackProccess(payload)
   console.log(response)
   // Send the message to acknowledge the postback
   callSendAPI(senderPsid, response)
