@@ -1,6 +1,8 @@
 const proccessMessage = require('./proccessMessage')
 const axios = require('axios')
 
+var Storage = require('node-storage')
+var store = new Storage('./data')
 const {
   responseFirstQuestion,
   responseSKU,

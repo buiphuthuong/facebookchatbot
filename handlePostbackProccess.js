@@ -1,5 +1,7 @@
 const axios = require('axios')
 
+var Storage = require('node-storage')
+var store = new Storage('./data')
 const {
   responseProductType,
   responseFeedBack,

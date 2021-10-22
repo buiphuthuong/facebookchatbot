@@ -23,8 +23,6 @@
 require('dotenv').config()
 
 // Imports dependencies and set up http server
-var Storage = require('node-storage')
-var store = new Storage('./data')
 
 const request = require('request'),
   express = require('express'),
