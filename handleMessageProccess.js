@@ -45,7 +45,7 @@ const handleMessageProccess = async (
   let typeMessage = ''
   if (receivedMessage.text) {
     const message = receivedMessage.text.toLowerCase()
-    const getdata = store.get(recipientId)
+    const getdata = await store.get(recipientId)
     console.log('getdata', getdata)
     console.log('recipientId', recipientId)
     if (store.get(recipientId)) {
