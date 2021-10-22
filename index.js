@@ -116,7 +116,7 @@ async function handleMessage(senderPsid, receivedMessage, recipientId) {
 async function handlePostback(senderPsid, receivedPostback, recipientId) {
   // Get the payload for the postback
   let payload = receivedPostback.payload
-  const response = await handlePostbackProccess(payload)
+  const response = await handlePostbackProccess(payload, recipientId)
   console.log(response)
   // Send the message to acknowledge the postback
   callSendAPI(senderPsid, response)

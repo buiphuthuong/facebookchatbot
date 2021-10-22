@@ -46,7 +46,7 @@ const getProducts = async (cat) => {
     console.log(error)
   }
 }
-const handlePostbackProccess = async (payload) => {
+const handlePostbackProccess = async (payload, recipientId) => {
   // Set the response based on the postback payload
   if (payload === 'shopping') {
     response = responseProductType
