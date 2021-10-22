@@ -31,88 +31,13 @@ const request = require('request'),
   { urlencoded, json } = require('body-parser'),
   app = express()
 
-const {
-  responseFirstQuestion,
-  responseProductType,
-  responseFeedBack,
-  responseSKU,
-  responseClipSKU,
-  responseCheckInfo,
-  responsePaymentType,
-  responseChoosePaymentType
-} = require('./response')
-const {
-  XIN_CHAO,
-  KET_THUC,
-  LAY_SDT,
-  ASK_SKU,
-  HET_HANG,
-  CON_HANG,
-  CHECK_PRODUCT,
-  CHECK_INFO,
-  CACH_THANH_TOAN
-} = require('./contanst')
-const proccessMessage = require('./proccessMessage')
+const handlePostbackProccess = require('./handlePostbackProccess')
+const handleMessageProccess = require('./handleMessageProccess')
 // Parse application/x-www-form-urlencoded
 app.use(urlencoded({ extended: true }))
 
 // Parse application/json
 app.use(json())
-
-const axios = require('axios')
-
-const getProducts = async (cat) => {
-  let elementArray = []
-  try {
-    const res = await axios.get(
-      cat
-        ? `https://cmscart-server.herokuapp.com/api/products?category=${cat}`
-        : 'https://cmscart-server.herokuapp.com/api/products'
-    )
-    //  console.log(res.data)
-    // console.log('aaa')
-
-    res.data.forEach((element) => {
-      let elementObj = {
-        title: element.title,
-        image_url: element.img,
-        subtitle: element.desc,
-        default_action: {
-          type: 'web_url',
-          url: `https://serene-leavitt-e5a5ec.netlify.app/product/${element._id}`,
-          webview_height_ratio: 'tall'
-        },
-        buttons: [
-          {
-            type: 'web_url',
-            url: `https://serene-leavitt-e5a5ec.netlify.app/product/${element._id}`,
-            title: 'Xem Ngay'
-          }
-        ]
-      }
-      elementArray.push(elementObj)
-    })
-    return elementArray
-  } catch (error) {
-    console.log(error)
-  }
-}
-const findProductBySKU = async (sku) => {
-  try {
-    const res = await axios.get(
-      sku
-        ? `https://cmscart-server.herokuapp.com/api/products/sku/${sku}`
-        : 'https://cmscart-server.herokuapp.com/api/products'
-    )
-    if (res.data.length > 0) {
-      return res.data[0].inStock === true ? true : false
-    } else {
-      return false
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
 
 // Respond with 'Hello World' when a GET request is made to the homepage
 app.get('/', function (_req, res) {
@@ -177,175 +102,22 @@ app.post('/webhook', (req, res) => {
 
 // Handles messages events
 async function handleMessage(senderPsid, receivedMessage, recipientId) {
-  //store.put('hello', 'world')
-
-  let response
-
   // Checks if the message contains text
-  let typeMessage = ''
 
-  if (receivedMessage.text) {
-    const message = receivedMessage.text.toLowerCase()
+  const response = handleMessageProccess(
+    senderPsid,
+    receivedMessage,
+    recipientId
+  )
 
-    if (store.get(recipientId)) {
-      const getdata = store.get(recipientId)
-      if (getdata === 'dong-y-mua') {
-        typeMessage = 'CHECK_INFO'
-      }
-    } else {
-      if (message.includes('sku')) {
-        const sku = message.split(':')[1]
-        const findSKU = await findProductBySKU(sku)
-        if (findSKU) {
-          typeMessage = 'CON_HANG'
-        } else {
-          typeMessage = 'HET_HANG'
-        }
-      } else {
-        typeMessage = proccessMessage(message)
-      }
-    }
-
-    console.log('typeMessage', typeMessage)
-    switch (typeMessage) {
-      case CACH_THANH_TOAN:
-        response = responsePaymentType
-        break
-      case CHECK_INFO:
-        response = responseCheckInfo
-        break
-      case XIN_CHAO:
-        response = responseFirstQuestion
-        break
-      case KET_THUC:
-        response = {
-          text: 'Rất vui được hỗ trợ cho bạn, Cảm ơn bạn đã quan tâm đến shop. Chúc bạn một ngày tốt lành, hẹn sớm gặp lại!'
-        }
-        break
-      case CHECK_PRODUCT:
-        response = responseSKU
-        break
-      case LAY_SDT:
-        response = {
-          text: 'Đây là số điện thoại và địa chỉ của Shop: 0944191101 - 1002 Tạ Quang Bữu, P6, Quận 8, HCM'
-        }
-        break
-      case CON_HANG:
-        response = {
-          attachment: {
-            type: 'template',
-            payload: {
-              template_type: 'generic',
-              elements: [
-                {
-                  title: 'Dạ, Sản phẩm này vẫn còn ạ!',
-                  subtitle:
-                    'Bạn có muốn mua sản phẩm này không ạ! Nhấn nút để trả lời ạ!',
-                  buttons: [
-                    {
-                      type: 'postback',
-                      title: 'Đồng ý mua',
-                      payload: 'dong-y-mua'
-                    },
-                    {
-                      type: 'postback',
-                      title: 'Tìm sản phẩm khác',
-                      payload: 'check-product'
-                    },
-                    {
-                      type: 'postback',
-                      title: 'Hỗ trợ!',
-                      payload: 'support'
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        }
-        break
-      case HET_HANG:
-        response = {
-          text: 'Dạ, Sản phẩm này hết ạ!'
-        }
-        break
-      case ASK_SKU:
-        response = responseSKU
-
-        break
-      default:
-        response = {
-          text: 'Rất tiếc mình không hiểu vấn đề bạn đang nói, vui lòng liên hệ trực tiếp với nhân viên của shop Hotline : 0123456789'
-        }
-        break
-    }
-  } else if (receivedMessage.attachments) {
-    console.log('att', receivedMessage)
-    // Get the URL of the message attachment
-  }
-
-  console.log(response)
-  // Send the response message
   callSendAPI(senderPsid, response)
 }
 
 // Handles messaging_postbacks events
 async function handlePostback(senderPsid, receivedPostback, recipientId) {
-  let response
-
   // Get the payload for the postback
   let payload = receivedPostback.payload
-  console.log('payload', payload)
-  // Set the response based on the postback payload
-  if (payload === 'shopping') {
-    response = responseProductType
-  } else if (payload === 'quan-ao-nam') {
-    const elementArray = await getProducts('tshirt')
-    // console.log('elementArray', elementArray)
-    const responseProductList = {
-      attachment: {
-        type: 'template',
-        payload: {
-          template_type: 'generic',
-          elements: elementArray
-        }
-      }
-    }
-    response = responseProductList
-  } else if (payload === 'support') {
-    response = responseFeedBack
-  } else if (payload === 'clip-huong-dan') {
-    response = responseClipSKU
-  } else if (payload === 'check-product') {
-    response = responseSKU
-  } else if (payload === 'dong-y-mua') {
-    store.put(recipientId, 'dong-y-mua')
-
-    response = {
-      text: 'Dạ vui lòng cho shop xin họ tên, địa chỉ và số điện thoại ạ! Lưu ý: nhập theo cú pháp Nguyễn Văn A - 1002 Tạ Quang Bửu, P6, Quận 8, Tp HCM - 0944191101'
-    }
-  } else if (payload === 'da-nhap-dung-info') {
-    store.remove(recipientId)
-    response = responseChoosePaymentType
-  } else if (payload === 'chua-nhap-dung-info') {
-    response = {
-      text: 'Dạ vui lòng cho shop xin họ tên, địa chỉ và số điện thoại ạ! Lưu ý: nhập theo cú pháp Nguyễn Văn A - 1002 Tạ Quang Bửu, P6, Quận 8, Tp HCM - 0944191101'
-    }
-  } else if (payload === 'chuyen-khoan') {
-    response = {
-      text: 'Dạ đây là số tài khoản của shop : VIETCOMBANK - 0191000310651 - BUI PHU THUONG hoặc MOMO: 0944191101. **** Lưu ý nhập số điện thoại ở phần ghi chú ạ ****'
-    }
-  } else if (payload === 'cod') {
-    response = {
-      text: 'Dạ chúng tôi đã ghi nhận thông tin ạ! Chúng tôi sẽ liên lạc sớm với bạn ạ!'
-    }
-  }
-
-  if (payload === 'yes') {
-    response = { text: 'Thanks!' }
-  } else if (payload === 'no') {
-    response = { text: 'Oops, try sending another imag2e.' }
-  }
+  const response = handlePostbackProccess(payload)
   // Send the message to acknowledge the postback
   callSendAPI(senderPsid, response)
 }

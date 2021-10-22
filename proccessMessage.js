@@ -54,6 +54,12 @@ const proccessMessage = (message) => {
     message.includes('thanh toán qua')
   ) {
     typeMessage = 'CACH_THANH_TOAN'
+  } else if (
+    message.includes('ok') ||
+    message.includes('cảm ơn') ||
+    message.includes('thanks')
+  ) {
+    typeMessage = 'KET_THUC'
   }
   // console.log(typeMessage)
   return typeMessage
