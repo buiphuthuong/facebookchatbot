@@ -177,7 +177,7 @@ app.post('/webhook', (req, res) => {
 async function handleMessage(senderPsid, receivedMessage, recipientId) {
   //store.put('hello', 'world')
   const getdata = store.get(recipientId)
-  console.log(getdata)
+  console.log('getdata', getdata)
   console.log('receivedMessage2', receivedMessage)
   console.log('senderPsid', senderPsid)
   let response
