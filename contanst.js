@@ -6,6 +6,7 @@ const CON_HANG = 'CON_HANG'
 const HET_HANG = 'HET_HANG'
 const CHECK_PRODUCT = 'CHECK_PRODUCT'
 const CHECK_INFO = 'CHECK_INFO'
+const CACH_THANH_TOAN = 'CACH_THANH_TOAN'
 module.exports = {
   XIN_CHAO,
   KET_THUC,
@@ -13,5 +14,6 @@ module.exports = {
   ASK_SKU,
   HET_HANG,
   CON_HANG,
-  CHECK_INFO
+  CHECK_INFO,
+  CACH_THANH_TOAN
 }

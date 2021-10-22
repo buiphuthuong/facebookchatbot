@@ -46,6 +46,14 @@ const proccessMessage = (message) => {
     message.includes('xin dia chi')
   ) {
     typeMessage = 'LAY_SDT'
+  } else if (
+    message.includes('cách thanh toán') ||
+    message.includes('thanh toán thế nào') ||
+    message.includes('hình thức thanh toán') ||
+    message.includes('thanh toán bằng cách') ||
+    message.includes('thanh toán qua')
+  ) {
+    typeMessage = 'CACH_THANH_TOAN'
   }
   // console.log(typeMessage)
   return typeMessage

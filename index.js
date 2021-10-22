@@ -37,7 +37,9 @@ const {
   responseFeedBack,
   responseSKU,
   responseClipSKU,
-  responseCheckInfo
+  responseCheckInfo,
+  responsePaymentType,
+  responseChoosePaymentType
 } = require('./response')
 const {
   XIN_CHAO,
@@ -47,7 +49,8 @@ const {
   HET_HANG,
   CON_HANG,
   CHECK_PRODUCT,
-  CHECK_INFO
+  CHECK_INFO,
+  CACH_THANH_TOAN
 } = require('./contanst')
 const proccessMessage = require('./proccessMessage')
 // Parse application/x-www-form-urlencoded
@@ -205,6 +208,9 @@ async function handleMessage(senderPsid, receivedMessage, recipientId) {
 
     console.log('typeMessage', typeMessage)
     switch (typeMessage) {
+      case CACH_THANH_TOAN:
+        response = responsePaymentType
+        break
       case CHECK_INFO:
         response = responseCheckInfo
         break
@@ -320,12 +326,18 @@ async function handlePostback(senderPsid, receivedPostback, recipientId) {
     }
   } else if (payload === 'da-nhap-dung-info') {
     store.remove(recipientId)
-    response = {
-      text: 'Dạ cảm ơn bạn đã cung cấp thông tin, chúng tôi sẽ kiểm tra và liên hệ sớm cho bạn ạ!'
-    }
+    response = responseChoosePaymentType
   } else if (payload === 'chua-nhap-dung-info') {
     response = {
       text: 'Dạ vui lòng cho shop xin họ tên, địa chỉ và số điện thoại ạ! Lưu ý: nhập theo cú pháp Nguyễn Văn A - 1002 Tạ Quang Bửu, P6, Quận 8, Tp HCM - 0944191101'
+    }
+  } else if (payload === 'chuyen-khoan') {
+    response = {
+      text: 'Dạ đây là số tài khoản của shop : VIETCOMBANK - 0191000310651 - BUI PHU THUONG hoặc MOMO: 0944191101. **** Lưu ý nhập số điện thoại ở phần ghi chú ạ ****'
+    }
+  } else if (payload === 'cod') {
+    response = {
+      text: 'Dạ chúng tôi đã ghi nhận thông tin ạ! Chúng tôi sẽ liên lạc sớm với bạn ạ!'
     }
   }
 

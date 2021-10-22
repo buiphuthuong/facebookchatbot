@@ -15,6 +15,61 @@ const responseQuickreply = {
     }
   ]
 }
+
+const responseChoosePaymentType = {
+  attachment: {
+    type: 'template',
+    payload: {
+      template_type: 'generic',
+      elements: [
+        {
+          title:
+            'Dạ cảm ơn bạn đã cung cấp thông tin ạ! Vui lòng chọn hình thức thanh toán ạ! Đặc biệt nếu chuyển khoảng trước sẽ được hỗ trợ 50% phí vận chuyển!',
+          subtitle: 'Nhấn nút để trả lời ạ!',
+          buttons: [
+            {
+              type: 'postback',
+              title: 'Chuyển khoản',
+              payload: 'chuyen-khoan'
+            },
+            {
+              type: 'postback',
+              title: 'Nhận hàng trả tiền - COD',
+              payload: 'cod'
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+const responsePaymentType = {
+  attachment: {
+    type: 'template',
+    payload: {
+      template_type: 'generic',
+      elements: [
+        {
+          title:
+            'Dạ chúng tôi có 2 cách thanh toán qua COD và chuyển khoảng trước ạ! Đặc biệt nếu chuyển khoảng trước sẽ được hỗ trợ 50% phí vận chuyển!',
+          subtitle: 'Nhấn nút để trả lời ạ!',
+          buttons: [
+            {
+              type: 'postback',
+              title: 'Chuyển khoản',
+              payload: 'chuyen-khoan'
+            },
+            {
+              type: 'postback',
+              title: 'Nhận hàng trả tiền - COD',
+              payload: 'cod'
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
 const responseCheckInfo = {
   attachment: {
     type: 'template',
@@ -190,5 +245,7 @@ module.exports = {
   responseSKU,
   responseClipSKU,
   responseQuickreply,
-  responseCheckInfo
+  responseCheckInfo,
+  responseChoosePaymentType,
+  responsePaymentType
 }
