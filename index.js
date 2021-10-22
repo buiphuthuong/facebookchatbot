@@ -159,7 +159,7 @@ app.post('/webhook', (req, res) => {
       if (webhookEvent.message) {
         handleMessage(senderPsid, webhookEvent.message, recipientId)
       } else if (webhookEvent.postback) {
-        handlePostback(senderPsid, webhookEvent.postback)
+        handlePostback(senderPsid, webhookEvent.postback, recipientId)
       }
     })
 
@@ -174,11 +174,13 @@ app.post('/webhook', (req, res) => {
 // Handles messages events
 async function handleMessage(senderPsid, receivedMessage, recipientId) {
   //store.put('hello', 'world')
-  const getdata = store.get(recipientId)
-  if (getdata === 'dong-y-mua') {
+  if (store.get(recipientId)) {
+    const getdata = store.get(recipientId)
+    if (getdata === 'dong-y-mua') {
+      console.log('getdata', getdata)
+    }
     console.log('getdata', getdata)
   }
-  console.log('getdata', getdata)
   console.log('receivedMessage2', receivedMessage)
   console.log('senderPsid', senderPsid)
   let response
@@ -278,7 +280,7 @@ async function handleMessage(senderPsid, receivedMessage, recipientId) {
 }
 
 // Handles messaging_postbacks events
-async function handlePostback(senderPsid, receivedPostback) {
+async function handlePostback(senderPsid, receivedPostback, recipientId) {
   let response
 
   // Get the payload for the postback
@@ -307,7 +309,7 @@ async function handlePostback(senderPsid, receivedPostback) {
   } else if (payload === 'check-product') {
     response = responseSKU
   } else if (payload === 'dong-y-mua') {
-    store.put(webhookEvent.recipient.id, 'dong-y-mua')
+    store.put(recipientId, 'dong-y-mua')
 
     response = {
       text: 'Dạ vui lòng cho shop xin họ tên, địa chỉ và số điện thoại ạ! Lưu ý: nhập theo cú pháp Nguyễn Văn A - 1002 Tạ Quang Bửu, P6, Quận 8, Tp HCM - 0944191101'
