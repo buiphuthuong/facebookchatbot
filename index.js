@@ -176,7 +176,7 @@ async function handleMessage(senderPsid, receivedMessage, recipientId) {
   //store.put('hello', 'world')
   const getdata = store.get(recipientId)
   if (getdata === 'dong-y-mua') {
-    console.log('getdata', getdata.text)
+    console.log('getdata', getdata)
   }
   console.log('getdata', getdata.text)
   console.log('receivedMessage2', receivedMessage)
