@@ -48,6 +48,7 @@ const handleMessageProccess = async (
 
     if (store.get(recipientId)) {
       const getdata = store.get(recipientId)
+      console.log('getdata', getdata)
       if (getdata === 'dong-y-mua') {
         typeMessage = 'CHECK_INFO'
       }
@@ -64,8 +65,7 @@ const handleMessageProccess = async (
         typeMessage = proccessMessage(message)
       }
     }
-
-    console.log('typeMessage', typeMessage)
+    console.log(typeMessage)
     switch (typeMessage) {
       case CACH_THANH_TOAN:
         response = responsePaymentType
@@ -74,7 +74,6 @@ const handleMessageProccess = async (
         response = responseCheckInfo
         break
       case XIN_CHAO:
-        console.log(responseFirstQuestion)
         response = responseFirstQuestion
         break
       case KET_THUC:
