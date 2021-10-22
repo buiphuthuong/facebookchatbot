@@ -15,6 +15,32 @@ const responseQuickreply = {
     }
   ]
 }
+const responseCheckInfo = {
+  attachment: {
+    type: 'template',
+    payload: {
+      template_type: 'generic',
+      elements: [
+        {
+          title: 'Vui lòng xác nhận đã nhập đúng thông tin ạ',
+          subtitle: 'Nhấn nút để trả lời ạ!',
+          buttons: [
+            {
+              type: 'postback',
+              title: 'Đã nhập đúng',
+              payload: 'da-nhap-dung-info'
+            },
+            {
+              type: 'postback',
+              title: 'Chưa tôi muốn nhập lại',
+              payload: 'chua-nhap-dung-info'
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
 const responseFirstQuestion = {
   attachment: {
     type: 'template',
@@ -163,5 +189,6 @@ module.exports = {
   responseFeedBack,
   responseSKU,
   responseClipSKU,
-  responseQuickreply
+  responseQuickreply,
+  responseCheckInfo
 }

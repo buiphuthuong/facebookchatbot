@@ -5,4 +5,13 @@ const ASK_SKU = 'ASK_SKU'
 const CON_HANG = 'CON_HANG'
 const HET_HANG = 'HET_HANG'
 const CHECK_PRODUCT = 'CHECK_PRODUCT'
-module.exports = { XIN_CHAO, KET_THUC, LAY_SDT, ASK_SKU, HET_HANG, CON_HANG }
+const CHECK_INFO = 'CHECK_INFO'
+module.exports = {
+  XIN_CHAO,
+  KET_THUC,
+  LAY_SDT,
+  ASK_SKU,
+  HET_HANG,
+  CON_HANG,
+  CHECK_INFO
+}

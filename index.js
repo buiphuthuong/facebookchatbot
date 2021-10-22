@@ -37,7 +37,7 @@ const {
   responseFeedBack,
   responseSKU,
   responseClipSKU,
-  responseQuickreply
+  responseCheckInfo
 } = require('./response')
 const {
   XIN_CHAO,
@@ -46,7 +46,8 @@ const {
   ASK_SKU,
   HET_HANG,
   CON_HANG,
-  CHECK_PRODUCT
+  CHECK_PRODUCT,
+  CHECK_INFO
 } = require('./contanst')
 const proccessMessage = require('./proccessMessage')
 // Parse application/x-www-form-urlencoded
@@ -174,36 +175,38 @@ app.post('/webhook', (req, res) => {
 // Handles messages events
 async function handleMessage(senderPsid, receivedMessage, recipientId) {
   //store.put('hello', 'world')
-  if (store.get(recipientId)) {
-    const getdata = store.get(recipientId)
-    if (getdata === 'dong-y-mua') {
-      console.log('getdata', getdata)
-    }
-    console.log('getdata', getdata)
-  }
-  console.log('receivedMessage2', receivedMessage)
-  console.log('senderPsid', senderPsid)
+
   let response
 
   // Checks if the message contains text
   let typeMessage = ''
+
   if (receivedMessage.text) {
     const message = receivedMessage.text.toLowerCase()
 
-    if (message.includes('sku')) {
-      const sku = message.split(':')[1]
-      const findSKU = await findProductBySKU(sku)
-      if (findSKU) {
-        typeMessage = 'CON_HANG'
+    if (store.get(recipientId)) {
+      const getdata = store.get(recipientId)
+      if (getdata === 'dong-y-mua') {
+        typeMessage = 'CHECK_INFO'
       } else {
-        typeMessage = 'HET_HANG'
+        if (message.includes('sku')) {
+          const sku = message.split(':')[1]
+          const findSKU = await findProductBySKU(sku)
+          if (findSKU) {
+            typeMessage = 'CON_HANG'
+          } else {
+            typeMessage = 'HET_HANG'
+          }
+        } else {
+          typeMessage = proccessMessage(message)
+        }
       }
-    } else {
-      typeMessage = proccessMessage(message)
     }
-
     console.log('typeMessage', typeMessage)
     switch (typeMessage) {
+      case CHECK_INFO:
+        response = responseCheckInfo
+        break
       case XIN_CHAO:
         response = responseFirstQuestion
         break
@@ -311,6 +314,15 @@ async function handlePostback(senderPsid, receivedPostback, recipientId) {
   } else if (payload === 'dong-y-mua') {
     store.put(recipientId, 'dong-y-mua')
 
+    response = {
+      text: 'Dạ vui lòng cho shop xin họ tên, địa chỉ và số điện thoại ạ! Lưu ý: nhập theo cú pháp Nguyễn Văn A - 1002 Tạ Quang Bửu, P6, Quận 8, Tp HCM - 0944191101'
+    }
+  } else if (payload === 'da-nhap-dung-info') {
+    store.remove(recipientId)
+    response = {
+      text: 'Dạ ơn bạn đã cung cấp thông tin, chúng tôi sẽ kiểm tra và liên hệ sớm cho bạn ạ!'
+    }
+  } else if (payload === 'chua-nhap-dung-info') {
     response = {
       text: 'Dạ vui lòng cho shop xin họ tên, địa chỉ và số điện thoại ạ! Lưu ý: nhập theo cú pháp Nguyễn Văn A - 1002 Tạ Quang Bửu, P6, Quận 8, Tp HCM - 0944191101'
     }
