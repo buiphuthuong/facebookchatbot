@@ -157,8 +157,6 @@ app.post('/webhook', (req, res) => {
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhookEvent.message) {
-        store.put(webhookEvent.recipient.id, webhookEvent.message)
-
         handleMessage(senderPsid, webhookEvent.message, recipientId)
       } else if (webhookEvent.postback) {
         handlePostback(senderPsid, webhookEvent.postback)
@@ -177,7 +175,10 @@ app.post('/webhook', (req, res) => {
 async function handleMessage(senderPsid, receivedMessage, recipientId) {
   //store.put('hello', 'world')
   const getdata = store.get(recipientId)
-  console.log('getdata', getdata)
+  if (getdata === 'dong-y-mua') {
+    console.log('getdata', getdata.text)
+  }
+  console.log('getdata', getdata.text)
   console.log('receivedMessage2', receivedMessage)
   console.log('senderPsid', senderPsid)
   let response
@@ -306,8 +307,10 @@ async function handlePostback(senderPsid, receivedPostback) {
   } else if (payload === 'check-product') {
     response = responseSKU
   } else if (payload === 'dong-y-mua') {
+    store.put(webhookEvent.recipient.id, 'dong-y-mua')
+
     response = {
-      text: 'Dạ vui lòng cho shop xin họ tên, địa chỉ và số điện thoại ạ! Shop sẽ kiểm tra thông tin và gửi sản phẩm cho bạn sớm nhất ạ!'
+      text: 'Dạ vui lòng cho shop xin họ tên, địa chỉ và số điện thoại ạ! Lưu ý: nhập theo cú pháp Nguyễn Văn A - 1002 Tạ Quang Bửu, P6, Quận 8, Tp HCM - 0944191101'
     }
   }
 
