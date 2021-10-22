@@ -17,6 +17,7 @@
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "node-storage": "^0.0.9",
     "nodemon": "^2.0.13",
     "request": "^2.88.2",
     "string-similarity": "^4.0.4"

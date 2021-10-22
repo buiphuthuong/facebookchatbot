@@ -23,6 +23,9 @@
 require('dotenv').config()
 
 // Imports dependencies and set up http server
+var Storage = require('node-storage')
+var store = new Storage('./data')
+
 const request = require('request'),
   express = require('express'),
   { urlencoded, json } = require('body-parser'),
@@ -171,6 +174,11 @@ app.post('/webhook', (req, res) => {
 
 // Handles messages events
 async function handleMessage(senderPsid, receivedMessage) {
+  //store.put('hello', 'world')
+  const getdata = store.get('hello')
+  console.log(getdata)
+  console.log('receivedMessage', receivedMessage)
+  console.log('senderPsid', senderPsid)
   let response
 
   // Checks if the message contains text
