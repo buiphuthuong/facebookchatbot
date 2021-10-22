@@ -74,6 +74,7 @@ const handleMessageProccess = async (
         response = responseCheckInfo
         break
       case XIN_CHAO:
+        console.log(responseFirstQuestion)
         response = responseFirstQuestion
         break
       case KET_THUC:
