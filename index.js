@@ -188,20 +188,21 @@ async function handleMessage(senderPsid, receivedMessage, recipientId) {
       const getdata = store.get(recipientId)
       if (getdata === 'dong-y-mua') {
         typeMessage = 'CHECK_INFO'
-      } else {
-        if (message.includes('sku')) {
-          const sku = message.split(':')[1]
-          const findSKU = await findProductBySKU(sku)
-          if (findSKU) {
-            typeMessage = 'CON_HANG'
-          } else {
-            typeMessage = 'HET_HANG'
-          }
+      }
+    } else {
+      if (message.includes('sku')) {
+        const sku = message.split(':')[1]
+        const findSKU = await findProductBySKU(sku)
+        if (findSKU) {
+          typeMessage = 'CON_HANG'
         } else {
-          typeMessage = proccessMessage(message)
+          typeMessage = 'HET_HANG'
         }
+      } else {
+        typeMessage = proccessMessage(message)
       }
     }
+
     console.log('typeMessage', typeMessage)
     switch (typeMessage) {
       case CHECK_INFO:
@@ -320,7 +321,7 @@ async function handlePostback(senderPsid, receivedPostback, recipientId) {
   } else if (payload === 'da-nhap-dung-info') {
     store.remove(recipientId)
     response = {
-      text: 'Dạ ơn bạn đã cung cấp thông tin, chúng tôi sẽ kiểm tra và liên hệ sớm cho bạn ạ!'
+      text: 'Dạ cảm ơn bạn đã cung cấp thông tin, chúng tôi sẽ kiểm tra và liên hệ sớm cho bạn ạ!'
     }
   } else if (payload === 'chua-nhap-dung-info') {
     response = {
