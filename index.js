@@ -177,7 +177,7 @@ async function handleMessage(senderPsid, receivedMessage) {
   //store.put('hello', 'world')
   const getdata = store.get('hello')
   console.log(getdata)
-  console.log('receivedMessage', receivedMessage)
+  console.log('receivedMessage2', receivedMessage)
   console.log('senderPsid', senderPsid)
   let response
 
