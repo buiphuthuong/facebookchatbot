@@ -8,13 +8,13 @@ const {
   responseChoosePaymentType
 } = require('./response')
 
-const getProducts = require('./callAPI')
+const callAPI = require('./callAPI')
 const handlePostbackProccess = async (payload, recipientId) => {
   // Set the response based on the postback payload
   if (payload === 'shopping') {
     response = responseProductType
   } else if (payload === 'quan-ao-nam') {
-    const elementArray = await getProducts('tshirt')
+    const elementArray = await callAPI.getProducts('tshirt')
     // console.log('elementArray', elementArray)
     const responseProductList = {
       attachment: {

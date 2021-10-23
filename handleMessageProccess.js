@@ -1,5 +1,5 @@
 const proccessMessage = require('./proccessMessage')
-const findProductBySKU = require('./callAPI')
+const callAPI = require('./callAPI')
 
 var Storage = require('node-storage')
 var store = new Storage('./data')
@@ -41,7 +41,7 @@ const handleMessageProccess = async (
     } else {
       if (message.includes('sku')) {
         const sku = message.split(':')[1]
-        const findSKU = await findProductBySKU(sku)
+        const findSKU = await callAPI.findProductBySKU(sku)
         if (findSKU) {
           typeMessage = 'CON_HANG'
         } else {
