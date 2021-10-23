@@ -1,8 +1,6 @@
 const proccessMessage = require('./proccessMessage')
 const callAPI = require('./callAPI')
 
-var Storage = require('node-storage')
-var store = new Storage('./data')
 const {
   responseFirstQuestion,
   responseSKU,
@@ -24,7 +22,8 @@ const {
 const handleMessageProccess = async (
   senderPsid,
   receivedMessage,
-  recipientId
+  recipientId,
+  store
 ) => {
   let typeMessage = ''
   if (receivedMessage.text) {

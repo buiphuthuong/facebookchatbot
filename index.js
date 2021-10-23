@@ -29,6 +29,8 @@ const request = require('request'),
   { urlencoded, json } = require('body-parser'),
   app = express()
 
+const Storage = require('node-storage')
+const store = new Storage('./data')
 const handlePostbackProccess = require('./handlePostbackProccess')
 const handleMessageProccess = require('./handleMessageProccess')
 // Parse application/x-www-form-urlencoded
@@ -105,7 +107,8 @@ async function handleMessage(senderPsid, receivedMessage, recipientId) {
   const response = await handleMessageProccess(
     senderPsid,
     receivedMessage,
-    recipientId
+    recipientId,
+    store
   )
   console.log(response)
 
@@ -116,7 +119,7 @@ async function handleMessage(senderPsid, receivedMessage, recipientId) {
 async function handlePostback(senderPsid, receivedPostback, recipientId) {
   // Get the payload for the postback
   let payload = receivedPostback.payload
-  const response = await handlePostbackProccess(payload, recipientId)
+  const response = await handlePostbackProccess(payload, recipientId, store)
   console.log(response)
   // Send the message to acknowledge the postback
   callSendAPI(senderPsid, response)

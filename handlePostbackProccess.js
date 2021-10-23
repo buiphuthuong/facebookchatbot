@@ -1,5 +1,3 @@
-var Storage = require('node-storage')
-var store = new Storage('./data')
 const {
   responseProductType,
   responseFeedBack,
@@ -9,7 +7,7 @@ const {
 } = require('./response')
 
 const callAPI = require('./callAPI')
-const handlePostbackProccess = async (payload, recipientId) => {
+const handlePostbackProccess = async (payload, recipientId, store) => {
   // Set the response based on the postback payload
   if (payload === 'shopping') {
     response = responseProductType
