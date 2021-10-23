@@ -23,6 +23,7 @@ const proccessMessage = (message) => {
   } else if (
     message.includes('có không') ||
     message.includes('còn không') ||
+    message.includes('muốn mua') ||
     message.includes('có hàng') ||
     message.includes('này không')
   ) {
