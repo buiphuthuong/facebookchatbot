@@ -52,4 +52,4 @@ const getProducts = async (cat) => {
     console.log(error)
   }
 }
-module.exports = { findProductBySKU, getProducts }
+module.exports = getProducts
