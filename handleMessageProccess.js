@@ -1,5 +1,5 @@
 const proccessMessage = require('./proccessMessage')
-const axios = require('axios')
+const findProductBySKU = require('./callAPI')
 
 var Storage = require('node-storage')
 var store = new Storage('./data')
@@ -20,22 +20,6 @@ const {
   CHECK_INFO,
   CACH_THANH_TOAN
 } = require('./contanst')
-const findProductBySKU = async (sku) => {
-  try {
-    const res = await axios.get(
-      sku
-        ? `https://cmscart-server.herokuapp.com/api/products/sku/${sku}`
-        : 'https://cmscart-server.herokuapp.com/api/products'
-    )
-    if (res.data.length > 0) {
-      return res.data[0].inStock === true ? true : false
-    } else {
-      return false
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
 
 const handleMessageProccess = async (
   senderPsid,
